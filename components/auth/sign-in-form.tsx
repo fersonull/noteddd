@@ -11,7 +11,9 @@ export default function SignInForm() {
   return (
     <div className="flex items-center justify-center h-dvh font-sans">
       <div className="w-full max-w-xl">
-        <AppLogo />
+        <div className="mb-10">
+          <AppLogo />
+        </div>
 
         <p className="font-semibold text-3xl">
           Login with your account, and start creating your first notebook.
