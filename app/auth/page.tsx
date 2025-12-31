@@ -1,7 +1,10 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { login } from "@/lib/actions/auth";
 
 export default function AuthPage() {
   return (
@@ -16,11 +19,11 @@ export default function AuthPage() {
 
         <Separator className="mt-10 mb-6" />
         <div className="flex flex-col items-start justify-center gap-4">
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => login("github", "/")}>
             <FaGithub />
             <span>Continue with Github</span>
           </Button>
-          <Button variant="outline">
+          <Button variant="outline" onClick={() => login("google", "/")}>
             <FcGoogle />
             <span>Continue with Google</span>
           </Button>
