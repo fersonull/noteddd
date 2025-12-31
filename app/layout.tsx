@@ -4,8 +4,9 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "anVoice",
-  description: "Anonimous voice uploading",
+  title: "noteddd.",
+  description:
+    "Web-based notebook app for creating and organizing notes with text, markdown, and code snippets in flexible cells. Clean, minimal, and designed for writing, learning, and experimentation.",
 };
 
 export default function RootLayout({
