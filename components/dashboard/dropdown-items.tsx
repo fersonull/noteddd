@@ -2,12 +2,12 @@
 
 import { logout } from "@/lib/actions/auth";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
-import { LogOut, LucideIcon, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 
 export default function DropdownItems() {
   const dropdownItems = [
     { name: "Profie", icon: User, action: () => {} },
-    { name: "Logout", icon: LogOut, action: () => logout("/auth") },
+    { name: "Logout", icon: LogOut, action: () => logout("/login") },
   ];
 
   return dropdownItems.map(({ name, icon: Icon, action }, ind) => (

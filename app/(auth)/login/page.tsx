@@ -1,6 +1,5 @@
 import SignInForm from "@/components/auth/sign-in-form";
-import { auth } from "../auth";
-import DashboardPage from "../dashboard/page";
+import { auth } from "../../auth";
 import { redirect } from "next/navigation";
 
 export default async function AuthPage() {
