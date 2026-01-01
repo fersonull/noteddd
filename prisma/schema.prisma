@@ -12,3 +12,30 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+// schema.prisma
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  notebooks     Notebook[] // Relation: One user has many notebooks
+  // ... other auth fields
+}
+
+model Notebook {
+  id          String   @id @default(cuid())
+  title       String   @default("Untitled")
+  
+  // This is where your blocks live.
+  // Prisma types this as "Json", allowing you to save arrays/objects freely.
+  content     Json?    @default("[]") 
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId]) // Good for performance
+}
