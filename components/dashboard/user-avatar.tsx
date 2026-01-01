@@ -11,50 +11,27 @@ import {
 import { Button } from "../ui/button";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import DropdownItems from "./dropdown-items";
-import { logout } from "@/lib/actions/auth";
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 
 export default async function UserAvatar() {
   const session = await auth();
 
   return (
-    // <div className="flex items-center gap-3 font-sans">
-    //   {/* user avatart */}
-    //   <div className="overflow-hidden rounded-full w-10 h-10 relative bg-gray-200 border-2 border-foreground">
-    //     {session?.user?.image ? (
-    //       <Image
-    //         src={session.user.image}
-    //         className="object-cover"
-    //         alt="User Avatar"
-    //         width={100}
-    //         height={100}
-    //       />
-    //     ) : (
-    //       <div className="flex items-center justify-center h-full text-xl font-bold text-gray-500">
-    //         {session?.user?.name?.[0] || "?"}
-    //       </div>
-    //     )}
-    //   </div>
-
-    //   {/* user name */}
-    //   <div className="flex flex-col leading-2">
-    //     <p className="text-muted-foreground">signed in as</p>
-    //     <p className="text-2xl font-semibold">{session.user.name}</p>
-    //   </div>
-    // </div>
-
-    // name and dropdown only
-
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <User />
-          <span>
-            <p className="font-sans">{session?.user?.email}</p>
-          </span>
-          <ChevronDown />
+        <Button variant="outline" className="rounded-full h-10 w-10">
+          <Avatar className="h-8 w-8">
+            <AvatarImage
+              src={session?.user?.image || ""}
+              alt={session?.user?.name || ""}
+            />
+            <AvatarFallback>
+              {session?.user?.name?.[0]?.toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-50 font-sans" align="start">
+      <DropdownMenuContent className="w-50 font-sans" align="end">
         <DropdownMenuGroup>
           <DropdownMenuLabel className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             My Account

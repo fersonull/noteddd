@@ -9,7 +9,7 @@ import AppLogo from "../common/app-logo";
 
 export default function SignInForm() {
   return (
-    <div className="flex items-center justify-center h-dvh font-sans">
+    <div className="flex items-center justify-center h-dvh font-sans w-full">
       <div className="w-full max-w-xl">
         <div className="mb-10">
           <AppLogo />
