@@ -32,9 +32,9 @@ export default async function UserAvatar() {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-50 font-sans" align="start">
+      <DropdownMenuContent className="w-50 font-outfit" align="start">
         <DropdownMenuGroup>
-          <DropdownMenuLabel className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          <DropdownMenuLabel className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">
             My Account
           </DropdownMenuLabel>
           {/* <DropdownMenuSeparator /> */}

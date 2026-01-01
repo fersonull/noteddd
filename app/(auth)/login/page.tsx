@@ -6,7 +6,7 @@ export default async function AuthPage() {
   const session = await auth();
   console.log(session);
 
-  if (session) redirect("/home");
+  if (session) redirect("/notebooks");
 
   return <SignInForm />;
 }

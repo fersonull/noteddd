@@ -1,28 +1,16 @@
 import { Button } from "../ui/button";
 import UserAvatar from "./user-avatar";
-import { Plus, SearchIcon } from "lucide-react";
-import {
-  InputGroupInput,
-  InputGroup,
-  InputGroupAddon,
-} from "../ui/input-group";
+import { FaGithub } from "react-icons/fa";
 
 export default async function Navbar() {
   return (
-    <div className="py-3 px-6 flex items-center justify-center sticky top-0 font-sans border-b">
-      <div className="flex items-center justify-between w-full">
+    <div className="py-3 flex items-center justify-center sticky top-0 font-outfit border-b">
+      <div className="flex items-center justify-between w-full max-w-6xl">
         <UserAvatar />
 
-        <InputGroup className="max-w-lg">
-          <InputGroupInput placeholder="Search..." />
-          <InputGroupAddon>
-            <SearchIcon />
-          </InputGroupAddon>
-        </InputGroup>
-
-        <Button variant="outline">
-          <Plus />
-          New notebook
+        <Button variant="link" size="sm">
+          <FaGithub />
+          <p>GitHub</p>
         </Button>
       </div>
     </div>

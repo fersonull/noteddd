@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { geistMono, geistSans } from "./fonts";
+import { geistMono, geistSans, outfit } from "./fonts";
 import ProvidersWrapper from "@/components/providers/providers-wrapper";
 import "./globals.css";
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
       >
         <ProvidersWrapper>{children}</ProvidersWrapper>
       </body>

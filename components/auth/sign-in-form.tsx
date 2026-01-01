@@ -9,7 +9,7 @@ import AppLogo from "../common/app-logo";
 
 export default function SignInForm() {
   return (
-    <div className="flex items-center justify-center h-dvh font-sans w-full">
+    <div className="flex items-center justify-center h-dvh font-outfit w-full">
       <div className="w-full max-w-xl">
         <div className="mb-10">
           <AppLogo />
@@ -24,7 +24,7 @@ export default function SignInForm() {
           <Button
             className="w-full"
             variant="outline"
-            onClick={() => login("github", "/dashboard")}
+            onClick={() => login("github", "/notebooks")}
           >
             <FaGithub />
             <span>Continue with GitHub</span>
@@ -32,7 +32,7 @@ export default function SignInForm() {
           <Button
             className="w-full"
             variant="outline"
-            onClick={() => login("google", "/dashboard")}
+            onClick={() => login("google", "/notebooks")}
           >
             <FcGoogle />
             <span>Continue with Google</span>

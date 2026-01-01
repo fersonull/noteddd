@@ -1,7 +1,7 @@
 export default function DashboardPage() {
   return (
-    <div className="font-sans flex items-center justify-center h-dvh">
-      <p className="text-3xl font-semibold">Notebooks Page</p>
+    <div className="font-outfit max-w-6xl w-full mx-auto mt-10">
+      <p className="">Notebooks</p>
     </div>
   );
 }
