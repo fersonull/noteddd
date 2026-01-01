@@ -1,7 +1,7 @@
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
-import Navbar from "@/components/dashboard/navbar";
-import Sidebar from "@/components/dashboard/sidebar";
+import Navbar from "@/components/notebooks/navbar";
+import Sidebar from "@/components/notebooks/sidebar";
 
 export default async function ProtectedLayout({
   children,
@@ -16,7 +16,7 @@ export default async function ProtectedLayout({
 
   return (
     <div className="flex h-dvh w-full">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="flex-1 flex flex-col">
         <Navbar />
 
