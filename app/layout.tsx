@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { geistMono, geistSans } from "./fonts";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import ProvidersWrapper from "@/components/providers/providers-wrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,14 +19,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <ProvidersWrapper>{children}</ProvidersWrapper>
       </body>
     </html>
   );
