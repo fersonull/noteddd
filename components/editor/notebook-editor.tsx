@@ -55,7 +55,7 @@ export function NotebookEditor({ initialBlocks, onChange }: EditorProps) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-2 pb-20">
+    <div className="max-w-3xl mx-auto space-y-2 pb-20 mt-6">
       {blocks.map((block, index) => (
         <div key={block.id} className="group relative">
           <BlockCell

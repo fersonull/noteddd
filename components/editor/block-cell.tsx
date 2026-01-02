@@ -48,7 +48,7 @@ export function BlockCell({ block, onUpdate, onDelete }: BlockCellProps) {
           ref={textareaRef}
           value={block.content}
           onChange={(e) => onUpdate(e.target.value)}
-          className="min-h-6 w-full resize-none border-none p-0 shadow-none focus-visible:ring-0 text-base overflow-hidden"
+          className="min-h-6 w-full resize-none border-none p-1 shadow-none focus-visible:ring-0 text-base"
           placeholder="Type something..."
           rows={1}
         />
