@@ -3,7 +3,7 @@
 import { auth } from "@/app/auth";
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export async function createNotebook(formData: FormData) {
   const session = await auth();
@@ -22,7 +22,7 @@ export async function createNotebook(formData: FormData) {
   });
 
   revalidatePath("/notebooks");
-  // redirect(`/notebooks/${notebook.id}`);
+  redirect(`/notebooks/${notebook.id}`);
 }
 
 export async function getAllNotebooks() {
@@ -38,6 +38,26 @@ export async function getAllNotebooks() {
   });
 
   return notebooks;
+}
+
+export async function getNotebook(id: string) {
+  const session = await auth();
+
+  const notebook = await prisma.notebook.findFirst({
+    where: {
+      id,
+      userId: session?.user?.id,
+    },
+  });
+
+  if (!notebook) {
+    // If this returns null, it means either:
+    // 1. The notebook doesn't exist
+    // 2. The notebook exists, but belongs to someone else (Access Denied)
+    return notFound();
+  }
+
+  return notebook;
 }
 
 export async function deleteNotebook(notebookId: string) {

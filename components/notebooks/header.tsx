@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { ArrowLeft } from "lucide-react";
 
-export function Header() {
+export function Header({ title }: { title: string }) {
   const router = useRouter();
 
   return (
@@ -14,7 +14,7 @@ export function Header() {
           <ArrowLeft />
         </Button>
 
-        <p className="font-semibold">Untitled</p>
+        <p className="font-semibold">{title}</p>
 
         <div />
       </div>

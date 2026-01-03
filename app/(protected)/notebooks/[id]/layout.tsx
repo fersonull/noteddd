@@ -9,8 +9,7 @@ export default function NotebookPageLayout({
 }) {
   return (
     <div className="h-full">
-      <Header />
-      <main className="max-w-6xl w-full mx-auto">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }
