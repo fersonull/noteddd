@@ -2,6 +2,7 @@
 
 import { auth } from "@/app/auth";
 import prisma from "@/lib/db";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function createNotebook(formData: FormData) {
@@ -20,5 +21,21 @@ export async function createNotebook(formData: FormData) {
     },
   });
 
-  redirect(`/notebooks/${notebook.id}`);
+  revalidatePath("/notebooks");
+  // redirect(`/notebooks/${notebook.id}`);
+}
+
+export async function getAllNotebooks() {
+  const session = await auth();
+
+  const notebooks = await prisma.notebook.findMany({
+    where: {
+      userId: session?.user?.id,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
+
+  return notebooks;
 }

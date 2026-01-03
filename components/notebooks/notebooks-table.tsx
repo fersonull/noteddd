@@ -11,24 +11,14 @@ import {
 } from "@/components/ui/table";
 import { NotebookIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Notebook } from "@/lib/types";
 
-export function NotebooksTable() {
+type NotebookType = {
+  notebooks: Notebook[];
+};
+
+export function NotebooksTable({ notebooks }: NotebookType) {
   const router = useRouter();
-
-  const notebooks = [
-    {
-      id: "sdoas-S9djs-sd9",
-      title: "Ice cream yummy",
-      content: [],
-      createdAt: "1 minute ago",
-    },
-    {
-      id: "sdoas-S9djs-sd1",
-      title: "OOP: Basics",
-      content: [],
-      createdAt: "10 minutes ago",
-    },
-  ];
 
   return (
     <Table>
@@ -51,7 +41,9 @@ export function NotebooksTable() {
               <NotebookIcon size={16} className="text-muted-foreground" />
               {n.title}
             </TableCell>
-            <TableCell className="text-right">{n.createdAt}</TableCell>
+            <TableCell className="text-right">
+              {n.updatedAt.toLocaleString("en-us")}
+            </TableCell>
             <TableCell className="text-right">12.2 KB</TableCell>
           </TableRow>
         ))}
