@@ -13,7 +13,7 @@ type WrapperPropsType = {
 export default function EditorWrapper({ id, blocks }: WrapperPropsType) {
   const handleSave = useDebouncedCallback(async (newContent: Block[]) => {
     await saveNotebook(id, newContent);
-  });
+  }, 1000);
 
   return <NotebookEditor initialBlocks={blocks} onChange={handleSave} />;
 }
