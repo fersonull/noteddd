@@ -22,7 +22,7 @@ export default async function NotebookPage({ params }: ParamsType) {
     <>
       <Header title={notebook.title} />
 
-      <main className="max-w-6xl w-full mx-auto">
+      <main className="max-w-6xl w-full mx-auto relative">
         <EditorWrapper id={notebook.id} blocks={blocks} />
       </main>
     </>

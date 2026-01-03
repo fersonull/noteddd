@@ -3,6 +3,7 @@
 import { NotebookEditor } from "@/components/editor/notebook-editor";
 import { saveNotebook } from "@/lib/actions/notebook";
 import { Block } from "@/lib/types";
+import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 type WrapperPropsType = {
@@ -10,10 +11,30 @@ type WrapperPropsType = {
   blocks: Block[];
 };
 
+type status = "saved" | "error" | "saving";
+
 export default function EditorWrapper({ id, blocks }: WrapperPropsType) {
+  const [status, setStatus] = useState<status>("saved");
+
   const handleSave = useDebouncedCallback(async (newContent: Block[]) => {
-    await saveNotebook(id, newContent);
+    setStatus("saving");
+
+    const result = await saveNotebook(id, newContent);
+
+    if (result.success) {
+      setStatus("saved");
+    } else {
+      setStatus("error");
+    }
   }, 1000);
 
-  return <NotebookEditor initialBlocks={blocks} onChange={handleSave} />;
+  return (
+    <>
+      <div className="fixed bottom-8 right-8 border rounded px-4 py-1">
+        <p className="text-sm">{status === "saving" ? "saving..." : status}</p>
+      </div>
+
+      <NotebookEditor initialBlocks={blocks} onChange={handleSave} />
+    </>
+  );
 }
