@@ -86,14 +86,19 @@ export function NotebookEditor({ initialBlocks, onChange }: EditorProps) {
           </div>
         </div>
       ))}
-
-      {/* "Add at bottom" Button if list is empty or for convenience */}
-      <div className="flex justify-center mt-8 pt-8 border-t border-dashed">
+      
+      <div className="flex gap-2 justify-center mt-8 pt-8 border-t border-dashed">
         <Button
           variant="outline"
           onClick={() => addBlock(blocks.length - 1, "text")}
         >
-          <Plus className="mr-2 h-4 w-4" /> Add Block
+          <Type /> Text
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() => addBlock(blocks.length - 1, "code")}
+        >
+          <Code /> Code
         </Button>
       </div>
     </div>
