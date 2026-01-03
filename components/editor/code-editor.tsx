@@ -20,7 +20,7 @@ export function CodeBlock({ content, onChange }: CodeBlockProps) {
         className="text-sm tracking-wider font-medium"
         value={content}
         height="auto" // Auto-grows like your text block
-        minHeight="80px"
+        minHeight="30px"
         theme={vscodeDark}
         extensions={extensions}
         onChange={(val) => onChange(val)}
