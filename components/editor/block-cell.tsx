@@ -33,7 +33,7 @@ export function BlockCell({
   return (
     <div className="relative pl-6 pr-2 py-2 rounded-md group/cell transition-colors">
       {/* Sidebar Controls (Drag / Delete) */}
-      <div className="absolute left-1 top-2 opacity-0 group-hover/cell:opacity-100 transition-opacity">
+      <div className="absolute left-0 top-2 opacity-0 group-hover/cell:opacity-100 transition-opacity">
         <div className="flex flex-col gap-2">
           <Button
             variant="ghost"
