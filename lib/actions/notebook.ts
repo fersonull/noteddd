@@ -4,6 +4,7 @@ import { auth } from "@/app/auth";
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
+import { Block } from "../types";
 
 export async function createNotebook(formData: FormData) {
   const session = await auth();
@@ -58,6 +59,33 @@ export async function getNotebook(id: string) {
   }
 
   return notebook;
+}
+
+export async function saveNotebook(notebookId: string, content: any) {
+  const session = await auth();
+
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+
+  try {
+    await prisma.notebook.update({
+      where: {
+        id: notebookId,
+        userId: session?.user?.id,
+      },
+      data: {
+        content,
+      },
+    });
+
+    revalidatePath(`/notebooks/${notebookId}`);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Save error:", error);
+    return { success: false, error: "Failed to save to database" };
+  }
 }
 
 export async function deleteNotebook(notebookId: string) {
