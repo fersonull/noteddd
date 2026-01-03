@@ -6,10 +6,6 @@ import { Input } from "../ui/input";
 import { createNotebook } from "@/lib/actions/notebook";
 
 export function NotebooksTableAction() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="flex items-center">
       <Popover>

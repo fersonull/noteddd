@@ -1,10 +1,9 @@
 import { NotebooksTable } from "@/components/notebooks/notebooks-table";
-import { NotebooksTableAction } from "@/components/notebooks/notebooks-table-action";
+import { NotebooksTableAction } from "@/components/notebooks/notebooks-header-action";
 import { getAllNotebooks } from "@/lib/actions/notebook";
 
 export default async function NotebooksPage() {
   const notebooks = await getAllNotebooks();
-  console.log(notebooks);
 
   return (
     <div className="font-outfit max-w-6xl w-full mx-auto mt-10">

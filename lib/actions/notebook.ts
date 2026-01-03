@@ -39,3 +39,24 @@ export async function getAllNotebooks() {
 
   return notebooks;
 }
+
+export async function deleteNotebook(notebookId: string) {
+  const session = await auth();
+
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+
+  const result = await prisma.notebook.deleteMany({
+    where: {
+      id: notebookId,
+      userId: session.user?.id,
+    },
+  });
+
+  if (result.count === 0) {
+    throw new Error("Failed to delete. You might not own this file.");
+  }
+
+  revalidatePath("/notebooks");
+}
