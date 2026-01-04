@@ -54,7 +54,30 @@ export function NotebookEditor({ initialBlocks, onChange }: EditorProps) {
     onChange(newBlocks);
   };
 
-  // Change the type of block
+  // Delete all blocks that has no content, except the first one
+  const deleteEmptyBlocks = (activeBlockId?: string) => {
+    if (blocks.length <= 1) return; // Never delete if it's the only block left
+
+    const newBlocks = blocks.filter((block, index) => {
+      // Rule 1: Always keep the very first block (so the doc isn't empty)
+      if (index === 0) return true;
+
+      // Rule 2: Always keep the block the user is currently using (passed ID)
+      if (activeBlockId && block.id === activeBlockId) return true;
+
+      // Rule 3: For all others, DELETE if empty (Keep if content exists)
+      // Note: checks for strings OR code blocks that are just whitespace
+      return block.content && block.content.trim() !== "";
+    });
+
+    // Only update state if something actually changed (performance optimization)
+    if (newBlocks.length !== blocks.length) {
+      setBlocks(newBlocks);
+      onChange(newBlocks);
+    }
+  };
+
+  // Change the type of block (text or code)
   const changeBlockType = (id: string) => {
     const updatedBlocks: Block[] = blocks.map((b) =>
       b.id === id ? { ...b, type: b.type === "code" ? "text" : "code" } : b
@@ -73,6 +96,7 @@ export function NotebookEditor({ initialBlocks, onChange }: EditorProps) {
             onUpdate={(content) => updateBlock(block.id, content)}
             onDelete={() => deleteBlock(block.id)}
             onChangeType={() => changeBlockType(block.id)}
+            onBlurCleanup={() => deleteEmptyBlocks(block.id)}
           />
 
           <div className="absolute -bottom-6 left-0 right-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity flex justify-center max-w-5 mx-auto">

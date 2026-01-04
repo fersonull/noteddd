@@ -13,6 +13,7 @@ interface BlockCellProps {
   onUpdate: (content: string) => void;
   onDelete: () => void;
   onChangeType: () => void;
+  onBlurCleanup: () => void;
 }
 
 export function BlockCell({
@@ -20,6 +21,7 @@ export function BlockCell({
   onUpdate,
   onDelete,
   onChangeType,
+  onBlurCleanup,
 }: BlockCellProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -32,7 +34,10 @@ export function BlockCell({
   }, [block.content, block.type]); // Run when content OR type changes
 
   return (
-    <div className="relative pl-6 pr-2 py-2 rounded-md group/cell transition-colors">
+    <div
+      className="relative pl-6 pr-2 py-2 rounded-md group/cell transition-colors"
+      onBlur={onBlurCleanup}
+    >
       {/* Sidebar Controls (Drag / Delete) */}
       <div className="absolute left-0 top-2 opacity-0 group-hover/cell:opacity-100 transition-opacity">
         <div className="flex flex-col gap-2">

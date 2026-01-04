@@ -32,7 +32,7 @@ export default function BlockCellDropdownMenu({
           <ArrowLeftRight />
           change type
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={onChangeType}>
+        <DropdownMenuItem>
           <FileCodeCorner />
           change language
         </DropdownMenuItem>
