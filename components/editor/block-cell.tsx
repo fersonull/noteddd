@@ -60,6 +60,7 @@ export function BlockCell({
         </div>
       ) : (
         <Textarea
+          autoFocus
           ref={textareaRef}
           value={block.content}
           onChange={(e) => onUpdate(e.target.value)}

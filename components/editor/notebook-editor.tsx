@@ -59,14 +59,10 @@ export function NotebookEditor({ initialBlocks, onChange }: EditorProps) {
     if (blocks.length <= 1) return; // Never delete if it's the only block left
 
     const newBlocks = blocks.filter((block, index) => {
-      // Rule 1: Always keep the very first block (so the doc isn't empty)
       if (index === 0) return true;
 
-      // Rule 2: Always keep the block the user is currently using (passed ID)
       if (activeBlockId && block.id === activeBlockId) return true;
 
-      // Rule 3: For all others, DELETE if empty (Keep if content exists)
-      // Note: checks for strings OR code blocks that are just whitespace
       return block.content && block.content.trim() !== "";
     });
 

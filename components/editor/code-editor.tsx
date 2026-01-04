@@ -27,6 +27,7 @@ export function CodeBlock({ content, language, onChange }: CodeBlockProps) {
   return (
     <div className="rounded-md overflow-hidden text-sm border border-border shadow-sm">
       <CodeMirror
+        autoFocus
         className="text-sm tracking-wider font-medium"
         value={content}
         height="auto" // Auto-grows like your text block
