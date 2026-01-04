@@ -29,12 +29,12 @@ export default function BlockCellDropdownMenu({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="font-outfit">
         <DropdownMenuItem onClick={onChangeType}>
-          <ArrowLeftRight />
-          change type
+          <ArrowLeftRight className="mr-2 h-4 w-4" />
+          Change type
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <FileCodeCorner />
-          change language
+          <FileCodeCorner className="mr-2 h-4 w-4" />
+          Change Language
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
