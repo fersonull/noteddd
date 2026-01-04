@@ -23,6 +23,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuGroup,
 } from "../ui/dropdown-menu";
+import { timeAgo } from "@/lib/utils";
 
 type NotebookType = {
   notebooks: Notebook[];
@@ -61,7 +62,7 @@ export function NotebooksTable({ notebooks }: NotebookType) {
               {n.title}
             </TableCell>
             <TableCell className="text-right text-muted-foreground">
-              {n.updatedAt.toLocaleDateString("en-US")}
+              {timeAgo(n.updatedAt.toString())}
             </TableCell>
             <TableCell className="text-right text-muted-foreground">
               12.2 KB
