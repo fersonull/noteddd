@@ -4,7 +4,7 @@ import { auth } from "@/app/auth";
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
-import { Block } from "../types";
+import { nanoid } from "nanoid";
 
 export async function createNotebook(formData: FormData) {
   const session = await auth();
@@ -14,10 +14,12 @@ export async function createNotebook(formData: FormData) {
     throw new Error("Unauthorized");
   }
 
+  const randomID = nanoid(10);
+
   const notebook = await prisma.notebook.create({
     data: {
       userId: session.user.id,
-      title: rawTitle,
+      title: rawTitle || `Untitled-${randomID}`,
       content: [], // Start empty
     },
   });

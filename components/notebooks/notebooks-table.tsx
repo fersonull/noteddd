@@ -80,7 +80,7 @@ export function NotebooksTable({ notebooks }: NotebookType) {
 
                   <DropdownMenuContent align="end" className="font-outfit">
                     <DropdownMenuGroup>
-                      <DropdownMenuLabel className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide truncate max-w-40">
+                      <DropdownMenuLabel className=" font-medium text-muted-foreground tracking-wide truncate max-w-40">
                         {n.title}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />

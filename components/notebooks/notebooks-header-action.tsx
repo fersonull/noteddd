@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import { Check, Plus } from "lucide-react";
+import { Check, FilePlusCorner, Plus } from "lucide-react";
 import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -11,16 +11,21 @@ export function NotebooksTableAction() {
       <Popover>
         <PopoverTrigger asChild>
           <Button size="sm" variant="outline">
-            <Plus />
-            <p className="text-sm">create new</p>
+            <FilePlusCorner />
+            <p className="text-sm">Create new</p>
           </Button>
         </PopoverTrigger>
         <PopoverContent>
           <form action={createNotebook} className="grid gap-4 font-outfit">
-            <Label>Notebook title</Label>
+            <div>
+              <Label>New Notebook</Label>
+              <p className="text-sm text-muted-foreground">
+                
+              </p>
+            </div>
             <Input
               name="title"
-              placeholder="Add title here..."
+              placeholder="Untitled"
               className="flex-1 me-1"
             />
             <Button>
