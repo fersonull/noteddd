@@ -60,6 +60,7 @@ export function BlockCell({
         </div>
       ) : (
         <Textarea
+          spellCheck={false}
           autoFocus
           ref={textareaRef}
           value={block.content}
