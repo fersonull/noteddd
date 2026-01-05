@@ -2,7 +2,7 @@
 
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ArrowRightLeft, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import type { Block } from "@/lib/types";
 import { useEffect, useRef } from "react";
 import { CodeBlock } from "./code-editor";
