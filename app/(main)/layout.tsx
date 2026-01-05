@@ -11,7 +11,7 @@ export default function MainHomeLayout({
     <div className="flex flex-col min-h-screen font-outfit w-full">
       <HomeNavbar />
 
-      <main className="w-full mx-auto h-full max-w-6xl">{children}</main>
+      <main className="w-full mx-auto h-full px-24">{children}</main>
     </div>
   );
 }
