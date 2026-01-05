@@ -5,6 +5,7 @@ import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { nanoid } from "nanoid";
+import { Block } from "../types";
 
 export async function createNotebook(formData: FormData) {
   const session = await auth();
@@ -63,7 +64,7 @@ export async function getNotebook(id: string) {
   return notebook;
 }
 
-export async function saveNotebook(notebookId: string, content: any) {
+export async function saveNotebook(notebookId: string, content: Block[]) {
   const session = await auth();
 
   if (!session) {
@@ -77,7 +78,7 @@ export async function saveNotebook(notebookId: string, content: any) {
         userId: session?.user?.id,
       },
       data: {
-        content,
+        content: content as any,
       },
     });
 
