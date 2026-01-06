@@ -3,10 +3,21 @@ import { NotebooksTableAction } from "@/components/notebooks/notebooks-header-ac
 import { getAllNotebooks } from "@/lib/actions/notebook";
 import EmptyNotebookFallback from "@/components/notebooks/empty-notebook-fallback";
 
-export default async function NotebooksPage() {
-  const notebooks = await getAllNotebooks();
+export default async function NotebooksPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
 
-  if (notebooks.length === 0) {
+  const result = await getAllNotebooks(params);
+  const notebooks = result.data ?? [];
+  const metadata = result.metadata;
+
+  console.log(notebooks);
+  console.log(metadata);
+
+  if (notebooks?.length === 0) {
     return <EmptyNotebookFallback />;
   }
 

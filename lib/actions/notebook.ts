@@ -2,6 +2,7 @@
 
 import { auth } from "@/app/auth";
 import prisma from "@/lib/db";
+import { success, z } from "zod";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { nanoid } from "nanoid";
@@ -29,20 +30,109 @@ export async function createNotebook(formData: FormData) {
   redirect(`/notebooks/${notebook.id}`);
 }
 
-export async function getAllNotebooks() {
+export async function getAllNotebooks(rawParams: unknown) {
   const session = await auth();
 
-  const notebooks = await prisma.notebook.findMany({
-    where: {
-      userId: session?.user?.id,
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-  });
+  if (!session?.user?.id) {
+    return { success: false, error: "Unauthorized" };
+  }
 
-  return notebooks;
+  const ParamsSchema = z.object({
+    page: z.coerce.number().int().min(1).default(1),
+    limit: z.coerce.number().int().min(1).max(50).default(12),
+    query: z.string().optional().default(""),
+  });
+  // 2. Parse the params. If 'limit' is missing, it defaults to 12.
+  const parsed = ParamsSchema.safeParse(rawParams);
+
+  if (!parsed.success) {
+    return { success: false, data: [], error: "Invalid parameters" };
+  }
+
+  const { page, limit, query } = parsed.data;
+  const skip = (page - 1) * limit;
+
+  try {
+    const [notebooks, totalCount] = await Promise.all([
+      prisma.notebook.findMany({
+        where: {
+          userId: session.user.id,
+          title: query ? { contains: query, mode: "insensitive" } : undefined,
+        },
+        orderBy: { updatedAt: "desc" },
+        // 3. Now guaranteed to be valid integers
+        take: limit,
+        skip: skip,
+      }),
+      prisma.notebook.count({
+        where: {
+          userId: session.user.id,
+          title: query ? { contains: query, mode: "insensitive" } : undefined,
+        },
+      }),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit) || 1;
+
+    return {
+      success: true,
+      data: notebooks,
+      metadata: {
+        currentPage: page,
+        totalPages: totalPages,
+        totalItems: totalCount,
+        hasMore: page < totalPages,
+      },
+    };
+  } catch (error) {
+    console.error("Database Error:", error);
+    return { success: false, data: [], error: "Failed to fetch notebooks" };
+  }
 }
+
+// export async function getAllNotebooks(params: {
+//   page: number;
+//   limit: number;
+//   query: string;
+// }) {
+//   const session = await auth();
+
+//   const { page, limit, query } = params;
+//   const skip: number = (page - 1) * limit;
+
+//   const [notebooks, totalCount] = await Promise.all([
+//     prisma.notebook.findMany({
+//       where: {
+//         userId: session?.user?.id,
+//         title: query ? { contains: query, mode: "insensitive" } : undefined,
+//       },
+//       orderBy: {
+//         updatedAt: "desc",
+//       },
+//       take: limit,
+//       skip: skip,
+//     }),
+//     prisma.notebook.count({
+//       where: {
+//         userId: session?.user?.id,
+//         title: query ? { contains: query, mode: "insensitive" } : undefined,
+//       },
+//     }),
+//   ]);
+
+//   const totalPages = Math.ceil(totalCount / limit) || 1;
+
+//   return {
+//     success: true,
+//     data: notebooks,
+//     metadata: {
+//       currentPage: page,
+//       totalItems: totalCount,
+//       totalPages: totalPages,
+//       hasMore: page < totalPages,
+//     },
+//   };
+// }
 
 export async function getNotebook(id: string) {
   const session = await auth();
