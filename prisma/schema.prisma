@@ -80,6 +80,7 @@ model Notebook {
   // This is where your blocks live.
   // Prisma types this as "Json", allowing you to save arrays/objects freely.
   content     Json?    @default("[]") 
+  // blocks      Block[]
   
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -89,3 +90,10 @@ model Notebook {
 
   @@index([userId]) // Good for performance
 }
+
+// model Block {
+//   id          String   @id @default(cuid())
+//   notebookId  String
+//   content     Json?    @default("[]")
+//   notebook    Notebook @relation(fields: [notebookId], references: [id])
+// }
