@@ -10,7 +10,7 @@ import AppLogo from "../common/app-logo";
 export default function SignInForm() {
   return (
     <div className="flex items-center justify-center h-dvh font-outfit w-full">
-      <div className="w-full max-w-xl">
+      <div className="w-full max-w-sm mx-auto">
         <div className="mb-10">
           <AppLogo />
         </div>
@@ -37,6 +37,16 @@ export default function SignInForm() {
             <FcGoogle />
             <span>Continue with Google</span>
           </Button>
+
+          <div className="text-center w-full">
+            <p className="text-xs">
+              By signing in, you agree to our{" "}
+              <a href="" className="underline">
+                Terms and Conditions
+              </a>
+              .
+            </p>
+          </div>
         </div>
       </div>
     </div>
