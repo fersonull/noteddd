@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
-import UserAvatar from "./user-avatar";
+import UserAvatar from "./user-account-avatar";
 import { FaGithub } from "react-icons/fa";
 
 export default async function Navbar() {
