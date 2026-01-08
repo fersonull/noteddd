@@ -8,3 +8,16 @@ export interface Block {
   content: string;
   language?: string; // Only used if type is 'code'
 }
+
+export type SearchParams = {
+  [key: string]: string | string[] | undefined;
+};
+
+export type Metadata =
+  | {
+      currentPage: number;
+      totalPages: number;
+      totalItems: number;
+      hasMore: boolean;
+    }
+  | undefined;
