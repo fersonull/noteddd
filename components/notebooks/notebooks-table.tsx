@@ -65,7 +65,7 @@ export function NotebooksTable({ notebooks }: NotebookType) {
               {timeAgo(n.updatedAt.toString())}
             </TableCell>
             <TableCell className="text-right text-muted-foreground">
-              12.2 KB
+              12.2 KB {/* Add a helper to calculate size */}
             </TableCell>
 
             <TableCell className="text-right w-12.5 p-0 pr-4">

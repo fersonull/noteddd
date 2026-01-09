@@ -4,7 +4,7 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid"; // npm install uuid @types/uuid
 import { Button } from "@/components/ui/button";
 import { Code, Type } from "lucide-react";
-import { BlockCell } from "./block-cell"; // We will create this next
+import { BlockCell } from "./block-cell";
 import type { Block, BlockType } from "@/lib/types";
 import {
   changeType,

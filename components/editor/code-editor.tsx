@@ -13,7 +13,6 @@ interface CodeBlockProps {
 
 export function CodeBlock({ content, language, onChange }: CodeBlockProps) {
   // Define extensions (languages, keymaps, etc.)
-  // You can add python(), html(), css() here later based on block.language prop
   const proglangMap: Record<string, Extension> = {
     javascript: javascript({ jsx: true }),
     python: python(),
