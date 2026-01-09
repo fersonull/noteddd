@@ -1,5 +1,4 @@
 import { auth } from "@/app/auth";
-import Image from "next/image";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +8,6 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { ChevronDown, LogOut, User } from "lucide-react";
 import DropdownItems from "./dropdown-items";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 
