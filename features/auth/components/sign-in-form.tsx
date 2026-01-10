@@ -1,13 +1,13 @@
 "use client";
 
 import { FaGithub } from "react-icons/fa";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
-import { login } from "@/lib/actions/auth";
-import AppLogo from "../common/app-logo";
+import { login } from "@/features/auth/actions/auth";
+import AppLogo from "@/components/common/app-logo";
 
-export default function SignInForm() {
+export function SignInForm() {
   return (
     <div className="flex items-center justify-center h-dvh font-outfit w-full">
       <div className="w-full max-w-sm mx-auto">
