@@ -10,7 +10,7 @@ export function NotebooksTableAction() {
     <div className="flex items-center">
       <Popover>
         <PopoverTrigger asChild>
-          <Button size="sm" variant="outline">
+          <Button size="sm">
             <FilePlusCorner />
             <p className="text-sm">Create new</p>
           </Button>
