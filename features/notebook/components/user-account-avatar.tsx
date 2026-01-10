@@ -15,9 +15,8 @@ import {
   AvatarFallback,
 } from "../../../components/ui/avatar";
 
-export async function UserAvatar() {
+export async function UserAccountAvatar() {
   const session = await auth();
-  console.log(session?.user?.id);
 
   return (
     <DropdownMenu>

@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { UserAvatar } from "./user-account-avatar";
+import { UserAccountAvatar } from "./user-account-avatar";
 import { FaGithub } from "react-icons/fa";
 
-export async function Navbar() {
+export function Navbar() {
   return (
     <div className="py-3 flex items-center justify-center sticky top-0 font-outfit border-b">
       <div className="flex items-center justify-between w-full max-w-6xl">
-        <UserAvatar />
+        <UserAccountAvatar />
 
         <Button variant="link" size="sm" asChild>
           <Link href="https://github.com/fersonull/noteddd." target="_blank">

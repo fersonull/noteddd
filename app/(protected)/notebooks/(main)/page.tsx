@@ -1,8 +1,8 @@
 import { NotebooksTable } from "@/features/notebook";
 import { NotebooksTableAction } from "@/features/notebook";
-import { getAllNotebooks } from "@/features/notebook";
 import { EmptyNotebookFallback } from "@/features/notebook";
 import { NotebooksTablePagination } from "@/features/notebook";
+import { getAllNotebooks } from "@/features/notebook/actions/notebook";
 import { SearchParams } from "@/lib/types";
 
 export default async function NotebooksPage({
