@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { auth } from "@/app/auth";
 
-export default async function HomeNavbar() {
+export async function HomeNavbar() {
   const session = await auth();
 
   return (

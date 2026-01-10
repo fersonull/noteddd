@@ -1,6 +1,4 @@
-import HomeNavbar from "@/components/home/home-navbar";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { HomeNavbar } from "@/features/landing/";
 
 export default function MainHomeLayout({
   children,

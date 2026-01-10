@@ -17,12 +17,12 @@ export default async function NotebooksPage({
   const notebooks = result.data ?? [];
   const metadata = result.metadata;
 
+  const totalPages = metadata?.totalPages ?? 1;
+
   // 2. Handle Empty State
   if (notebooks.length === 0) {
     return <EmptyNotebookFallback />;
   }
-
-  const totalPages = metadata?.totalPages ?? 1;
 
   return (
     <div className="font-outfit max-w-6xl w-full mx-auto mt-10">
