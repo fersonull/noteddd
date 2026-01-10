@@ -1,9 +1,13 @@
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import { Check, FilePlusCorner } from "lucide-react";
-import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { createNotebook } from "@/lib/actions/notebook";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "../../../components/ui/popover";
+import { Label } from "../../../components/ui/label";
+import { Input } from "../../../components/ui/input";
+import { createNotebook } from "@/features/notebook/actions/notebook";
 
 export function NotebooksTableAction() {
   return (

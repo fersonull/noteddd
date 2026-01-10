@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../ui/pagination";
+} from "../../../components/ui/pagination";
 
 type PaginationPropsType = {
   metadata: Metadata;

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { Header } from "@/components/notebooks/header";
+import { Header } from "@/components/editor/header";
 
 export default function NotebookPageLayout({
   children,

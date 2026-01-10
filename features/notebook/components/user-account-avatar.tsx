@@ -6,12 +6,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import DropdownItems from "./dropdown-items";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
+} from "../../../components/ui/dropdown-menu";
+import { Button } from "../../../components/ui/button";
+import { DropdownItems } from "./dropdown-items";
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from "../../../components/ui/avatar";
 
-export default async function UserAvatar() {
+export async function UserAvatar() {
   const session = await auth();
   console.log(session?.user?.id);
 

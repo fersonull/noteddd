@@ -1,6 +1,6 @@
 import EditorWrapper from "@/components/editor/editor-wrapper";
-import { Header } from "@/components/notebooks/header";
-import { getNotebook } from "@/lib/actions/notebook";
+import { Header } from "@/components/editor/header";
+import { getNotebook } from "@/features/notebook/actions/notebook";
 import { Block } from "@/lib/types";
 
 type ParamsType = {

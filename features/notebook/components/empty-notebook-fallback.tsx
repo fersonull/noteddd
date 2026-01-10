@@ -1,7 +1,7 @@
 import { BookDashed } from "lucide-react";
 import { NotebooksTableAction } from "./notebooks-header-action";
 
-export default function EmptyNotebookFallback() {
+export function EmptyNotebookFallback() {
   return (
     <div className="font-outfit max-w-6xl w-full mx-auto mt-10 flex items-center justify-center ">
       <div className="flex flex-col gap-4 items-center justify-center">
