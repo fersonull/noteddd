@@ -10,7 +10,7 @@ export function Navbar() {
         <UserAccountAvatar />
 
         <Button variant="link" size="sm" asChild>
-          <Link href="https://github.com/fersonull/noteddd." target="_blank">
+          <Link href="https://github.com/fersonull/noteddd" target="_blank">
             <FaGithub />
             <p>Contribute</p>
           </Link>

@@ -1,5 +1,5 @@
 // Component
-export { DropdownItems } from "./components/dropdown-items";
+export { UserAccountAvatarDropdownItems } from "./components/user-account-avatar-dropdown-items";
 export { EmptyNotebookFallback } from "./components/empty-notebook-fallback";
 export { Navbar } from "./components/navbar";
 export { NotebooksTableAction } from "./components/notebooks-header-action";

@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu";
 import { Button } from "../../../components/ui/button";
-import { DropdownItems } from "./dropdown-items";
+import { UserAccountAvatarDropdownItems } from "./user-account-avatar-dropdown-items";
 import {
   Avatar,
   AvatarImage,
@@ -46,7 +46,7 @@ export async function UserAccountAvatar() {
             My Account
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownItems />
+          <UserAccountAvatarDropdownItems />
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
