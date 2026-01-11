@@ -2,18 +2,11 @@
 
 import { NotebookEditor } from "@/components/editor/notebook-editor";
 import { saveNotebook } from "@/features/notebook/actions/notebook";
-import { Block } from "@/lib/types";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import type { WrapperProps, Block, status } from "@/features/editor/types";
 
-type WrapperPropsType = {
-  id: string;
-  blocks: Block[];
-};
-
-type status = "saved" | "error" | "saving";
-
-export default function EditorWrapper({ id, blocks }: WrapperPropsType) {
+export default function EditorWrapper({ id, blocks }: WrapperProps) {
   const [status, setStatus] = useState<status>("saved");
 
   const handleSave = useDebouncedCallback(async (newContent: Block[]) => {

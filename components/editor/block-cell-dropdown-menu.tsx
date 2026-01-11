@@ -8,14 +8,11 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { Ellipsis, ArrowLeftRight, FileCodeCorner } from "lucide-react";
-
-type DropdownPropsType = {
-  onChangeType: () => void;
-};
+import type { BlockCellDropdownProps } from "@/features/editor/types";
 
 export default function BlockCellDropdownMenu({
   onChangeType,
-}: DropdownPropsType) {
+}: BlockCellDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

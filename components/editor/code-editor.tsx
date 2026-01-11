@@ -4,12 +4,7 @@ import CodeMirror, { Extension } from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
-
-interface CodeBlockProps {
-  content: string;
-  language?: string;
-  onChange: (value: string) => void;
-}
+import type { CodeBlockProps } from "@/features/editor/types";
 
 export function CodeBlock({ content, language, onChange }: CodeBlockProps) {
   // Define extensions (languages, keymaps, etc.)

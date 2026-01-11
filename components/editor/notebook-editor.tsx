@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid"; // npm install uuid @types/uuid
 import { Button } from "@/components/ui/button";
 import { Code, Type } from "lucide-react";
 import { BlockCell } from "./block-cell";
-import type { Block, BlockType } from "@/lib/types";
 import {
   changeType,
   clean,
@@ -13,13 +12,16 @@ import {
   update,
 } from "@/lib/services/blocks.services";
 import NotebookEditorHoverMenu from "./notebook-editor-hover-menu";
+import type {
+  NotebookEditorProps,
+  Block,
+  BlockType,
+} from "@/features/editor/types";
 
-interface EditorProps {
-  initialBlocks: Block[];
-  onChange: (blocks: Block[]) => void; // To trigger auto-save
-}
-
-export function NotebookEditor({ initialBlocks, onChange }: EditorProps) {
+export function NotebookEditor({
+  initialBlocks,
+  onChange,
+}: NotebookEditorProps) {
   const [blocks, setBlocks] = useState<Block[]>(
     initialBlocks.length > 0
       ? initialBlocks

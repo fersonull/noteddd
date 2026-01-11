@@ -6,7 +6,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { nanoid } from "nanoid";
-import { Block } from "../../../lib/types";
+import type { Block } from "../types";
 
 export async function createNotebook(formData: FormData) {
   const session = await auth();
