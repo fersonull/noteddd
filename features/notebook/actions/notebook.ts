@@ -1,12 +1,12 @@
 "use server";
 
-import { auth } from "@/app/auth";
 import prisma from "@/lib/db";
-import { success, z } from "zod";
+import { auth } from "@/app/auth";
+import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { nanoid } from "nanoid";
-import { Block } from "../types";
+import { Block } from "../../../lib/types";
 
 export async function createNotebook(formData: FormData) {
   const session = await auth();
@@ -21,7 +21,7 @@ export async function createNotebook(formData: FormData) {
   const notebook = await prisma.notebook.create({
     data: {
       userId: session.user.id,
-      title: rawTitle || `Untitled-${randomID}`,
+      title: rawTitle || `Untitled-${randomID}`, // Random name if empty
       content: [], // Start empty
     },
   });
@@ -89,50 +89,6 @@ export async function getAllNotebooks(rawParams: unknown) {
     return { success: false, data: [], error: "Failed to fetch notebooks" };
   }
 }
-
-// export async function getAllNotebooks(params: {
-//   page: number;
-//   limit: number;
-//   query: string;
-// }) {
-//   const session = await auth();
-
-//   const { page, limit, query } = params;
-//   const skip: number = (page - 1) * limit;
-
-//   const [notebooks, totalCount] = await Promise.all([
-//     prisma.notebook.findMany({
-//       where: {
-//         userId: session?.user?.id,
-//         title: query ? { contains: query, mode: "insensitive" } : undefined,
-//       },
-//       orderBy: {
-//         updatedAt: "desc",
-//       },
-//       take: limit,
-//       skip: skip,
-//     }),
-//     prisma.notebook.count({
-//       where: {
-//         userId: session?.user?.id,
-//         title: query ? { contains: query, mode: "insensitive" } : undefined,
-//       },
-//     }),
-//   ]);
-
-//   const totalPages = Math.ceil(totalCount / limit) || 1;
-
-//   return {
-//     success: true,
-//     data: notebooks,
-//     metadata: {
-//       currentPage: page,
-//       totalItems: totalCount,
-//       totalPages: totalPages,
-//       hasMore: page < totalPages,
-//     },
-//   };
-// }
 
 export async function getNotebook(id: string) {
   const session = await auth();

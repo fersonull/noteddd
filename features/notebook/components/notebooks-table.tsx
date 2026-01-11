@@ -12,8 +12,8 @@ import {
 import { Ellipsis, NotebookIcon, Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Notebook } from "@/lib/generated/prisma/client";
-import { deleteNotebook } from "@/lib/actions/notebook";
-import { Button } from "../ui/button";
+import { deleteNotebook } from "@/features/notebook/actions/notebook";
+import { Button } from "../../../components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -22,7 +22,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
   DropdownMenuGroup,
-} from "../ui/dropdown-menu";
+} from "../../../components/ui/dropdown-menu";
 import { timeAgo } from "@/lib/utils";
 
 type NotebookType = {

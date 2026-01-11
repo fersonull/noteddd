@@ -1,8 +1,8 @@
-import { NotebooksTable } from "@/components/notebooks/notebooks-table";
-import { NotebooksTableAction } from "@/components/notebooks/notebooks-header-action";
-import { getAllNotebooks } from "@/lib/actions/notebook";
-import EmptyNotebookFallback from "@/components/notebooks/empty-notebook-fallback";
-import { NotebooksTablePagination } from "@/components/notebooks/notebooks-table-pagination";
+import { NotebooksTable } from "@/features/notebook";
+import { NotebooksTableAction } from "@/features/notebook";
+import { EmptyNotebookFallback } from "@/features/notebook";
+import { NotebooksTablePagination } from "@/features/notebook";
+import { getAllNotebooks } from "@/features/notebook/actions/notebook";
 import { SearchParams } from "@/lib/types";
 
 export default async function NotebooksPage({
@@ -12,7 +12,7 @@ export default async function NotebooksPage({
 }) {
   const params = await searchParams;
 
-  // 1. Fetch data with secure, typed paramsp
+  // 1. Fetch data with secure, typed params
   const result = await getAllNotebooks(params);
   const notebooks = result.data ?? [];
   const metadata = result.metadata;

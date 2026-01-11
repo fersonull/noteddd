@@ -1,6 +1,6 @@
 import { auth } from "../../../auth";
 import { redirect } from "next/navigation";
-import Navbar from "@/components/notebooks/navbar";
+import { Navbar } from "@/features/notebook/";
 
 export default async function MainNotebooksLayout({
   children,

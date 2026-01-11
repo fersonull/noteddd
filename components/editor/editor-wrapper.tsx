@@ -1,7 +1,7 @@
 "use client";
 
 import { NotebookEditor } from "@/components/editor/notebook-editor";
-import { saveNotebook } from "@/lib/actions/notebook";
+import { saveNotebook } from "@/features/notebook/actions/notebook";
 import { Block } from "@/lib/types";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";

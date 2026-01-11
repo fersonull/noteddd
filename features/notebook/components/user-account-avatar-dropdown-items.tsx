@@ -1,10 +1,10 @@
 "use client";
 
-import { logout } from "@/features/auth/index";
-import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { logout } from "@/features/auth/actions/auth";
+import { DropdownMenuItem } from "../../../components/ui/dropdown-menu";
 import { LogOut, User } from "lucide-react";
 
-export default function DropdownItems() {
+export function UserAccountAvatarDropdownItems() {
   const dropdownItems = [
     { name: "Profile", icon: User, action: () => {} },
     { name: "Logout", icon: LogOut, action: () => logout("/login") },
