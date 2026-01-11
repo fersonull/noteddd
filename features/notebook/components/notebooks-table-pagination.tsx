@@ -9,15 +9,10 @@ import {
   PaginationPrevious,
 } from "../../../components/ui/pagination";
 
-type PaginationPropsType = {
-  metadata: Metadata;
-  searchParams: SearchParams;
-};
-
 export function NotebooksTablePagination({
   metadata,
   searchParams,
-}: PaginationPropsType) {
+}: PaginationProps) {
   const params = searchParams;
 
   const currentPage = metadata?.currentPage ?? 1;

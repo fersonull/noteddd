@@ -39,7 +39,7 @@ export async function getAllNotebooks(rawParams: unknown) {
 
   const ParamsSchema = z.object({
     page: z.coerce.number().int().min(1).default(1),
-    limit: z.coerce.number().int().min(1).max(50).default(12),
+    limit: z.coerce.number().int().min(1).max(50).default(10),
     query: z.string().optional().default(""),
   });
   // 2. Parse the params. If 'limit' is missing, it defaults to 12.
@@ -153,6 +153,26 @@ export async function deleteNotebook(notebookId: string) {
 
   if (result.count === 0) {
     throw new Error("Failed to delete. You might not own this file.");
+  }
+
+  revalidatePath("/notebooks");
+}
+
+export async function renameNotebook(notebookId: string, newTitle: string) {
+  const session = await auth();
+
+  try {
+    await prisma.notebook.update({
+      where: {
+        id: notebookId,
+        userId: session?.user?.id,
+      },
+      data: {
+        title: newTitle,
+      },
+    });
+  } catch (error) {
+    console.log(error);
   }
 
   revalidatePath("/notebooks");
