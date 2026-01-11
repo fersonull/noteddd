@@ -9,10 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Ellipsis, NotebookIcon, Pencil, Trash2 } from "lucide-react";
+import { Check, Ellipsis, NotebookIcon, Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Notebook } from "@/lib/generated/prisma/client";
-import { deleteNotebook } from "@/features/notebook/actions/notebook";
+import {
+  deleteNotebook,
+  renameNotebook,
+} from "@/features/notebook/actions/notebook";
 import { Button } from "../../../components/ui/button";
 import {
   DropdownMenu,
@@ -24,17 +26,26 @@ import {
   DropdownMenuGroup,
 } from "../../../components/ui/dropdown-menu";
 import { timeAgo } from "@/lib/utils";
+import { useState } from "react";
 
-type NotebookType = {
-  notebooks: Notebook[];
-};
-
-export function NotebooksTable({ notebooks }: NotebookType) {
+export function NotebooksTable({ notebooks }: Notebooks) {
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [newTitle, setNewTitle] = useState<string>("");
   const router = useRouter();
 
   const handleDelete = async (notebookId: string) => {
     try {
       await deleteNotebook(notebookId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRename = async (id: string) => {
+    try {
+      await renameNotebook(id, newTitle);
+
+      setEditingId(null);
     } catch (error) {
       console.error(error);
     }
@@ -59,7 +70,30 @@ export function NotebooksTable({ notebooks }: NotebookType) {
           >
             <TableCell className="font-medium flex items-center gap-2">
               <NotebookIcon size={16} className="text-muted-foreground" />
-              {n.title}
+              {editingId === n.id ? (
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-2"
+                >
+                  <input
+                    autoFocus
+                    type="text"
+                    defaultValue={n.title}
+                    onChange={(e) => setNewTitle(e.target.value)}
+                    className="ring ring-muted-foreground py-1 px-3 rounded-sm"
+                  />
+
+                  <Button
+                    size="icon-sm"
+                    variant="ghost"
+                    onClick={() => handleRename(n.id)}
+                  >
+                    <Check size={14} />
+                  </Button>
+                </div>
+              ) : (
+                n.title
+              )}
             </TableCell>
             <TableCell className="text-right text-muted-foreground">
               {timeAgo(n.updatedAt.toString())}
@@ -84,7 +118,7 @@ export function NotebooksTable({ notebooks }: NotebookType) {
                         {n.title}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => console.log("Rename")}>
+                      <DropdownMenuItem onClick={() => setEditingId(n.id)}>
                         <Pencil className="mr-2 h-4 w-4" />
                         Rename
                       </DropdownMenuItem>
