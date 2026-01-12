@@ -1,4 +1,3 @@
-import { Metadata, SearchParams } from "@/lib/types";
 import {
   Pagination,
   PaginationContent,
@@ -8,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../../../components/ui/pagination";
+import type { PaginationProps } from "../types";
 
 export function NotebooksTablePagination({
   metadata,

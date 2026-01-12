@@ -1,13 +1,9 @@
 import EditorWrapper from "@/components/editor/editor-wrapper";
 import { Header } from "@/components/editor/header";
 import { getNotebook } from "@/features/notebook/actions/notebook";
-import { Block } from "@/lib/types";
+import { Block, NotebookPageParams } from "@/features/editor/types";
 
-type ParamsType = {
-  params: Promise<{ id: string }>;
-};
-
-export default async function NotebookPage({ params }: ParamsType) {
+export default async function NotebookPage({ params }: NotebookPageParams) {
   const { id } = await params;
   console.log(id);
 

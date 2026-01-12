@@ -36,3 +36,7 @@ export interface NotebookEditorProps {
 export interface BlockCellDropdownProps {
   onChangeType: () => void;
 }
+
+export interface NotebookPageParams {
+  params: Promise<{ id: string }>;
+}

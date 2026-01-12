@@ -27,6 +27,7 @@ import {
 } from "../../../components/ui/dropdown-menu";
 import { timeAgo } from "@/lib/utils";
 import { useState } from "react";
+import type { Notebooks } from "../types";
 
 export function NotebooksTable({ notebooks }: Notebooks) {
   const [editingId, setEditingId] = useState<string | null>(null);

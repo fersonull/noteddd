@@ -1,4 +1,4 @@
-import { Block, BlockType } from "../types";
+import { Block, BlockType } from "@/features/editor/types";
 import { v4 as uuidv4 } from "uuid";
 
 export const insert = (blocks: Block[], index: number, type: BlockType) => {
