@@ -1,6 +1,7 @@
-<p align="center">
-    noteddd
-</p>
+<div align="center">
+  <h1>noteddd</h1>
+</div>
+
 
 <p align="center">
     <img src="/public/noteddd-landing.png" height="300" />
