@@ -36,7 +36,7 @@ The architecture emphasizes secure coding practices, strict type safety, and ent
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/fersonull/noteddd.git](https://github.com/fersonull/noteddd.git)
+    git clone https://github.com/fersonull/noteddd.git
     cd noteddd
     ```
 
