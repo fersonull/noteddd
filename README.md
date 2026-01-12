@@ -1,6 +1,6 @@
-# Enterprise-Grade Block Notebook
+# noteddd
 
-![Block Notebook App Screenshot](image_1.png)
+![Block Notebook App Screenshot](public/noteddd-landing.png)
 
 [![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -36,8 +36,8 @@ The architecture emphasizes secure coding practices, strict type safety, and ent
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/yourusername/your-repo.git](https://github.com/yourusername/your-repo.git)
-    cd your-repo
+    git clone [https://github.com/fersonull/noteddd.git](https://github.com/fersonull/noteddd.git)
+    cd noteddd
     ```
 
 2.  **Install dependencies:**
@@ -55,6 +55,7 @@ The architecture emphasizes secure coding practices, strict type safety, and ent
 
     ```env
     DATABASE_URL="postgresql://..."
+    DIRECT_URL="postgresql://..."
     AUTH_SECRET="your-generated-secret"
     AUTH_GITHUB_ID="..."
     AUTH_GITHUB_SECRET="..."
