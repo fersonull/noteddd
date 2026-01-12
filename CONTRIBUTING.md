@@ -48,11 +48,35 @@ Ensure you have Node.js 18+ and a local PostgreSQL instance running.
 
 ## 📂 Project Structure
 
-- `/app`: Next.js App Router pages and layouts.
-- `/components/editor`: Core logic for the block-based editor.
-- `/lib`: Shared utilities, including Prisma client and utils.
-- `/actions`: Server Actions (ensure Zod validation is present here).
-- `/prisma`: Database schema and migrations.
+Noteddd follows a **Feature-Driven Architecture**. We prioritize domain encapsulation over technical layers. This means code is organized by **what it does** (the feature) rather than **what it is** (component, hook, or action).
+
+### High-Level Overview
+
+- **`/app`**: Contains **only** the routing logic (pages, layouts) and entry points. These files should remain "thin" and primarily import feature modules.
+- **`/features`**: The core business logic lives here. Each directory represents a distinct domain of the application.
+- **`/components/ui`**: Shared, agnostic design system components (Shadcn UI primitives). These components contain **no business logic**.
+- **`/lib`**: Core infrastructure, database clients (Prisma), and universal utilities.
+
+### Feature Directory Layout (`/features`)
+
+When working on a specific domain (e.g., the Editor), all related code should be colocated within its feature folder:
+
+```text
+/features
+  ├── /editor              # Domain: Document Editing
+  │     ├── /components    # Editor-specific UI (e.g., BlockWrapper, Toolbar)
+  │     ├── /actions.ts    # Server Actions specific to the editor (validated w/ Zod)
+  │     ├── /hooks.ts      # Editor-specific hooks (e.g., useEditorState)
+  │     ├── /types.ts      # Local type definitions
+  │     └── /utils.ts      # Helper functions for this feature
+  │
+  ├── /auth                # Domain: Authentication
+  │     ├── /components    # SignInForm, SignOutButton
+  │     └── /actions.ts    # Login/Register server actions
+  │
+  └── /dashboard           # Domain: Document Management
+        ├── /components    # DocumentGrid, PaginationControls
+        └── /data.ts       # Data fetching logic
 
 ## 🚀 Submitting a Pull Request
 
@@ -75,3 +99,4 @@ We follow a basic semantic commit message convention:
 ---
 
 Thank you for helping make Noteddd better!
+```
