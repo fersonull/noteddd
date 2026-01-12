@@ -1,4 +1,4 @@
-# noteddd
+# Noteddd
 
 ![Block Notebook App Screenshot](public/noteddd-landing.png)
 
@@ -8,70 +8,82 @@
 [![Shadcn UI](https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white)](https://ui.shadcn.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![Auth.js](https://img.shields.io/badge/Auth.js-000000?style=for-the-badge&logo=authdotjs&logoColor=white)](https://authjs.dev/)
-[![Zod](https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white)](https://zod.dev/)
 
-A modern, secure, and scalable block-based notebook application built with the latest Next.js App Router features. This application allows users to create rich documents composed of various block types, similar to Notion, featuring a robust editor and a paginated dashboard.
+**Noteddd** is a modern, secure, and enterprise-grade block-based notebook application. Built on the Next.js App Router, it provides a notion-style editing experience where documents are composed of modular blocks.
 
-The architecture emphasizes secure coding practices, strict type safety, and enterprise-grade patterns for state management and data fetching.
+The architecture prioritizes security, strict type safety, and scalability, utilizing Zod for runtime validation and React Context for robust state management.
 
-## Key Features
+## 🚀 Key Features
 
-- **Block-Based Editor:** Create documents using modular blocks, currently supporting rich Text and Code blocks with syntax highlighting.
-- **Intuitive UI:** Features a hover-menu interface to easily insert new blocks between existing content.
-- **Robust State Management:** Editor state is managed using React Context and a `useReducer` pattern for predictability and scalability.
-- **Secure Authentication:** Implements Auth.js (v5) with GitHub and Google providers, ensuring secure user sessions.
-- **Paginated Dashboard:** A performant dashboard view with server-side pagination, search capabilities, and a "sliding window" pagination UI.
-- **Type-Safe API:** Server Actions use Zod for strict runtime validation of inputs (e.g., pagination limits, search queries) to prevent database stress and security vulnerabilities.
-- **Database Integration:** Uses Prisma ORM for efficient and type-safe database operations.
+### 📝 Block-Based Editor
 
-## Getting Started
+- **Modular Content:** Create documents using distinct blocks (Text, Code, etc.).
+- **Syntax Highlighting:** Integrated support for code blocks with rich syntax highlighting.
+- **Intuitive Insertion:** Custom hover-menu interface for seamless block insertion between content.
+- **Robust State:** Powered by React Context and `useReducer` for predictable editor behavior.
+
+### 🛡️ Enterprise-Grade Security
+
+- **Authentication:** Secure sessions via **Auth.js (v5)** supporting GitHub and Google OAuth.
+- **Input Validation:** All Server Actions utilize **Zod** for strict runtime validation to prevent vulnerabilities and database stress.
+- **Type Safety:** End-to-end TypeScript integration ensures reliability from the database to the client.
+
+### ⚡ Performance & Dashboard
+
+- **Paginated Dashboard:** Server-side pagination with search functionality.
+- **Sliding Window UI:** A clean, user-friendly pagination interface.
+- **Optimized Data:** Efficient database queries using Prisma ORM.
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 14+ (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS & Shadcn UI
+- **Database:** PostgreSQL with Prisma ORM
+- **Auth:** Auth.js (NextAuth v5)
+- **Validation:** Zod
+
+## 🏁 Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- A PostgreSQL database (or compatible URL)
+- PostgreSQL Database
 
 ### Installation
 
-1.  **Clone the repository:**
+1.  **Clone the repository**
 
     ```bash
-    git clone https://github.com/fersonull/noteddd.git
+    git clone [https://github.com/fersonull/noteddd.git](https://github.com/fersonull/noteddd.git)
     cd noteddd
     ```
 
-2.  **Install dependencies:**
+2.  **Install dependencies**
 
     ```bash
     npm install
-    # or
-    pnpm install
-    # or
-    yarn install
     ```
 
-3.  **Set up Environment Variables:**
-    Create a `.env` file in the root directory and add your database connection string and Auth.js secrets.
+3.  **Environment Setup**
+    Create a `.env` file in the root:
 
     ```env
-    DATABASE_URL="postgresql://..."
-    DIRECT_URL="postgresql://..."
+    DATABASE_URL="postgresql://user:password@localhost:5432/noteddd"
     AUTH_SECRET="your-generated-secret"
-    AUTH_GITHUB_ID="..."
-    AUTH_GITHUB_SECRET="..."
-    AUTH_GOOGLE_ID="..."
-    AUTH_GOOGLE_SECRET="..."
+    AUTH_GITHUB_ID="your-github-id"
+    AUTH_GITHUB_SECRET="your-github-secret"
+    AUTH_GOOGLE_ID="your-google-id"
+    AUTH_GOOGLE_SECRET="your-google-secret"
     ```
 
-4.  **Run Database Migrations:**
+4.  **Database Migration**
 
     ```bash
     npx prisma migrate dev
     ```
 
-5.  **Run the Development Server:**
+5.  **Start Development Server**
     ```bash
     npm run dev
     ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
