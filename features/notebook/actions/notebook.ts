@@ -2,11 +2,11 @@
 
 import prisma from "@/lib/db";
 import { auth } from "@/app/auth";
-import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { nanoid } from "nanoid";
 import type { Block } from "../types";
+import { ParamsSchema } from "../schemas";
 
 export async function createNotebook(formData: FormData) {
   const session = await auth();
@@ -37,11 +37,6 @@ export async function getAllNotebooks(rawParams: unknown) {
     return { success: false, error: "Unauthorized" };
   }
 
-  const ParamsSchema = z.object({
-    page: z.coerce.number().int().min(1).default(1),
-    limit: z.coerce.number().int().min(1).max(50).default(10),
-    query: z.string().optional().default(""),
-  });
   // 2. Parse the params. If 'limit' is missing, it defaults to 12.
   const parsed = ParamsSchema.safeParse(rawParams);
 
