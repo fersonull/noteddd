@@ -1,4 +1,6 @@
-# noteddd - Your Space to Think in Text and Code
+<p align="center">
+    noteddd
+</p>
 
 <p align="center">
     <img src="/public/noteddd-landing.png" height="300" />
