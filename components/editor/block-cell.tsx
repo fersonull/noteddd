@@ -3,18 +3,10 @@
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import type { Block } from "@/lib/types";
+import type { BlockCellProps } from "@/features/editor/types";
 import { useEffect, useRef } from "react";
 import { CodeBlock } from "./code-editor";
 import BlockCellDropdownMenu from "./block-cell-dropdown-menu";
-
-interface BlockCellProps {
-  block: Block;
-  onUpdate: (content: string) => void;
-  onDelete: () => void;
-  onChangeType: () => void;
-  onBlurCleanup: () => void;
-}
 
 export function BlockCell({
   block,
