@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid"; // npm install uuid @types/uuid
+import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import { Code, Type } from "lucide-react";
 import { BlockCell } from "./block-cell";
@@ -11,7 +11,7 @@ import {
   insert,
   update,
 } from "@/lib/services/blocks.services";
-import NotebookEditorHoverMenu from "./notebook-editor-hover-menu";
+import { NotebookEditorHoverMenu } from "@/features/editor";
 import type {
   NotebookEditorProps,
   Block,

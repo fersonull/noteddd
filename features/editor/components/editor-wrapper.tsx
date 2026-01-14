@@ -1,12 +1,12 @@
 "use client";
 
-import { NotebookEditor } from "@/components/editor/notebook-editor";
+import { NotebookEditor } from "@/features/editor";
 import { saveNotebook } from "@/features/notebook/actions/notebook";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import type { WrapperProps, Block, status } from "@/features/editor/types";
 
-export default function EditorWrapper({ id, blocks }: WrapperProps) {
+export function EditorWrapper({ id, blocks }: WrapperProps) {
   const [status, setStatus] = useState<status>("saved");
 
   const handleSave = useDebouncedCallback(async (newContent: Block[]) => {
