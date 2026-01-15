@@ -39,6 +39,7 @@ export interface BlockCellDropdownProps {
   currentLanguage?: string;
   onChangeType: () => void;
   onChangeLanguage: (language: string) => void;
+  onDelete: () => void;
 }
 
 export interface NotebookPageParams {
