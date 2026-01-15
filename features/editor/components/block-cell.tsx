@@ -13,6 +13,7 @@ export function BlockCell({
   onUpdate,
   onDelete,
   onChangeType,
+  onChangeLanguage,
   onBlurCleanup,
 }: BlockCellProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -33,7 +34,12 @@ export function BlockCell({
       {/* Sidebar Controls (Drag / Delete) */}
       <div className="absolute left-0 top-2 opacity-0 group-hover/cell:opacity-100 transition-opacity">
         <div className="flex flex-col gap-2">
-          <BlockCellDropdownMenu onChangeType={onChangeType} />
+          <BlockCellDropdownMenu
+            blockType={block.type}
+            currentLanguage={block.language}
+            onChangeType={onChangeType}
+            onChangeLanguage={onChangeLanguage}
+          />
           <Button
             variant="ghost"
             size="icon"
@@ -48,7 +54,11 @@ export function BlockCell({
       {/* Render based on Type */}
       {block.type === "code" ? (
         <div className="relative z-0">
-          <CodeBlock content={block.content} onChange={onUpdate} />
+          <CodeBlock
+            content={block.content}
+            language={block.language}
+            onChange={onUpdate}
+          />
         </div>
       ) : (
         <Textarea

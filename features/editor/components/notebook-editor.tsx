@@ -73,6 +73,16 @@ export function NotebookEditor({
     onChange(updatedBlocks);
   };
 
+  // CHANGE BLOCK LANGUAGE: Change the programming language of a code block
+  const changeBlockLanguage = (id: string, language: string) => {
+    const updatedBlocks: Block[] = blocks.map((block) =>
+      block.id === id ? { ...block, language } : block
+    );
+
+    setBlocks(updatedBlocks);
+    onChange(updatedBlocks);
+  };
+
   return (
     <div className="max-w-3xl mx-auto space-y-2 pb-20 mt-6">
       {blocks.map((block, index) => (
@@ -82,6 +92,7 @@ export function NotebookEditor({
             onUpdate={(content) => updateBlock(block.id, content)}
             onDelete={() => deleteBlock(block.id)}
             onChangeType={() => changeBlockType(block.id)}
+            onChangeLanguage={(language) => changeBlockLanguage(block.id, language)}
             onBlurCleanup={() => deleteEmptyBlocks(block.id)}
           />
 
