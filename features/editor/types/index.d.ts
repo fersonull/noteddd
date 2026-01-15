@@ -25,6 +25,7 @@ export interface BlockCellProps {
   onUpdate: (content: string) => void;
   onDelete: () => void;
   onChangeType: () => void;
+  onChangeLanguage: (language: string) => void;
   onBlurCleanup: () => void;
 }
 
@@ -34,7 +35,11 @@ export interface NotebookEditorProps {
 }
 
 export interface BlockCellDropdownProps {
+  blockType: BlockType;
+  currentLanguage?: string;
   onChangeType: () => void;
+  onChangeLanguage: (language: string) => void;
+  onDelete: () => void;
 }
 
 export interface NotebookPageParams {

@@ -73,35 +73,65 @@ export function NotebookEditor({
     onChange(updatedBlocks);
   };
 
+  // CHANGE BLOCK LANGUAGE: Change the programming language of a code block
+  const changeBlockLanguage = (id: string, language: string) => {
+    const updatedBlocks: Block[] = blocks.map((block) =>
+      block.id === id ? { ...block, language } : block
+    );
+
+    setBlocks(updatedBlocks);
+    onChange(updatedBlocks);
+  };
+
   return (
-    <div className="max-w-3xl mx-auto space-y-2 pb-20 mt-6">
-      {blocks.map((block, index) => (
-        <div key={block.id} className="group relative">
-          <BlockCell
-            block={block}
-            onUpdate={(content) => updateBlock(block.id, content)}
-            onDelete={() => deleteBlock(block.id)}
-            onChangeType={() => changeBlockType(block.id)}
-            onBlurCleanup={() => deleteEmptyBlocks(block.id)}
-          />
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 pb-24">
+      {/* Blocks Container */}
+      <div>
+        {blocks.map((block, index) => (
+          <div key={block.id} className="group relative">
+            <BlockCell
+              block={block}
+              onUpdate={(content) => updateBlock(block.id, content)}
+              onDelete={() => deleteBlock(block.id)}
+              onChangeType={() => changeBlockType(block.id)}
+              onChangeLanguage={(language) =>
+                changeBlockLanguage(block.id, language)
+              }
+              onBlurCleanup={() => deleteEmptyBlocks(block.id)}
+            />
 
-          <NotebookEditorHoverMenu index={index} addBlock={addBlock} />
+            <NotebookEditorHoverMenu index={index} addBlock={addBlock} />
+          </div>
+        ))}
+      </div>
+
+      {/* Add Block Toolbar - Enhanced */}
+      <div className="mt-12 pt-8 border-t border-dashed border-border/50">
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-sm text-muted-foreground font-medium">
+            Add a new block
+          </p>
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              size="lg"
+              className="gap-2 hover:bg-muted hover:border-foreground/20 transition-all"
+              onClick={() => addBlock(blocks.length - 1, "text")}
+            >
+              <Type className="h-4 w-4" />
+              <span>Text Block</span>
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="gap-2 hover:bg-muted hover:border-foreground/20 transition-all"
+              onClick={() => addBlock(blocks.length - 1, "code")}
+            >
+              <Code className="h-4 w-4" />
+              <span>Code Block</span>
+            </Button>
+          </div>
         </div>
-      ))}
-
-      <div className="flex gap-2 justify-center mt-8 pt-8 border-t border-dashed">
-        <Button
-          variant="outline"
-          onClick={() => addBlock(blocks.length - 1, "text")}
-        >
-          <Type /> Text
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => addBlock(blocks.length - 1, "code")}
-        >
-          <Code /> Code
-        </Button>
       </div>
     </div>
   );
