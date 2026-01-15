@@ -1,8 +1,8 @@
 import { Code, Type } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import type { BlockType } from "@/features/editor/types";
 
-export default function NotebookEditorHoverMenu({
+export function NotebookEditorHoverMenu({
   addBlock,
   index,
 }: {

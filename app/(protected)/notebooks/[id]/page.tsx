@@ -1,5 +1,5 @@
-import EditorWrapper from "@/components/editor/editor-wrapper";
-import { Header } from "@/components/editor/header";
+import { EditorWrapper } from "@/features/editor";
+import { Header } from "@/features/editor";
 import { getNotebook } from "@/features/notebook/actions/notebook";
 import { Block, NotebookPageParams } from "@/features/editor/types";
 

@@ -6,7 +6,7 @@ import { Trash2 } from "lucide-react";
 import type { BlockCellProps } from "@/features/editor/types";
 import { useEffect, useRef } from "react";
 import { CodeBlock } from "./code-editor";
-import BlockCellDropdownMenu from "./block-cell-dropdown-menu";
+import { BlockCellDropdownMenu } from "@/features/editor";
 
 export function BlockCell({
   block,

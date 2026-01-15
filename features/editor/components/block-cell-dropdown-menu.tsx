@@ -5,12 +5,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+} from "../../../components/ui/dropdown-menu";
+import { Button } from "../../../components/ui/button";
 import { Ellipsis, ArrowLeftRight, FileCodeCorner } from "lucide-react";
 import type { BlockCellDropdownProps } from "@/features/editor/types";
 
-export default function BlockCellDropdownMenu({
+export function BlockCellDropdownMenu({
   onChangeType,
 }: BlockCellDropdownProps) {
   return (
