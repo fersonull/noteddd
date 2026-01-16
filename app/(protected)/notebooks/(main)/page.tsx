@@ -4,6 +4,7 @@ import { EmptyNotebookFallback } from "@/features/notebook";
 import { NotebooksTablePagination } from "@/features/notebook";
 import { getAllNotebooks } from "@/features/notebook/actions/notebook";
 import type { SearchParams } from "@/features/notebook/types";
+import { normalizPaginatedResult } from "@/features/notebook/utils";
 
 export default async function NotebooksPage({
   searchParams,
@@ -13,7 +14,7 @@ export default async function NotebooksPage({
   const params = await searchParams;
 
   // 1. Fetch data with secure, typed params
-  const result = await getAllNotebooks(params);
+  const result = normalizPaginatedResult(await getAllNotebooks(params));
   const notebooks = result.data ?? [];
   const metadata = result.metadata;
 

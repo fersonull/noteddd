@@ -3,7 +3,7 @@ interface Notebooks {
 }
 
 interface PaginationProps {
-  metadata: Metadata;
+  metadata: PaginationMetadata;
   searchParams: SearchParams;
 }
 
@@ -20,11 +20,30 @@ export interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export type Metadata =
+export type PaginationMetadata = {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  hasMore: boolean;
+} | null;
+
+export type GetAllNotebookResult =
   | {
-      currentPage: number;
-      totalPages: number;
-      totalItems: number;
-      hasMore: boolean;
+      success: true;
+      data: Notebook[];
+      metadata: PaginationMetadata;
     }
-  | undefined;
+  | {
+      success: false;
+      data: [];
+      error: string;
+    };
+
+export type SaveNotebookResult =
+  | {
+      success: true;
+    }
+  | {
+      success: false;
+      error: string;
+    };

@@ -5,10 +5,11 @@ import { auth } from "@/app/auth";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { nanoid } from "nanoid";
-import type { Block } from "../types";
+import type { Block, GetAllNotebookResult, SaveNotebookResult } from "../types";
 import { ParamsSchema } from "../schemas";
+import { Notebook } from "@/lib/generated/prisma/client";
 
-export async function createNotebook(formData: FormData) {
+export async function createNotebook(formData: FormData): Promise<void> {
   const session = await auth();
   const rawTitle = formData.get("title") as string;
 
@@ -30,11 +31,13 @@ export async function createNotebook(formData: FormData) {
   redirect(`/notebooks/${notebook.id}`);
 }
 
-export async function getAllNotebooks(rawParams: unknown) {
+export async function getAllNotebooks(
+  rawParams: unknown
+): Promise<GetAllNotebookResult> {
   const session = await auth();
 
   if (!session?.user?.id) {
-    return { success: false, error: "Unauthorized" };
+    return { success: false, data: [], error: "Unauthorized" };
   }
 
   // 2. Parse the params. If 'limit' is missing, it defaults to 12.
@@ -85,7 +88,7 @@ export async function getAllNotebooks(rawParams: unknown) {
   }
 }
 
-export async function getNotebook(id: string) {
+export async function getNotebook(id: string): Promise<Notebook> {
   const session = await auth();
 
   const notebook = await prisma.notebook.findFirst({
@@ -105,7 +108,10 @@ export async function getNotebook(id: string) {
   return notebook;
 }
 
-export async function saveNotebook(notebookId: string, content: Block[]) {
+export async function saveNotebook(
+  notebookId: string,
+  content: Block[]
+): Promise<SaveNotebookResult> {
   const session = await auth();
 
   if (!session) {
@@ -132,7 +138,7 @@ export async function saveNotebook(notebookId: string, content: Block[]) {
   }
 }
 
-export async function deleteNotebook(notebookId: string) {
+export async function deleteNotebook(notebookId: string): Promise<void> {
   const session = await auth();
 
   if (!session) {
@@ -153,7 +159,10 @@ export async function deleteNotebook(notebookId: string) {
   revalidatePath("/notebooks");
 }
 
-export async function renameNotebook(notebookId: string, newTitle: string) {
+export async function renameNotebook(
+  notebookId: string,
+  newTitle: string
+): Promise<void> {
   const session = await auth();
 
   try {
