@@ -27,6 +27,7 @@ import { timeAgo } from "@/lib/utils";
 import { useState } from "react";
 import type { Notebooks } from "../types";
 import { Input } from "@/components/ui/input";
+import { calculateNotebookSize, formatBytes } from "../utils";
 
 export function NotebooksTable({ notebooks }: Notebooks) {
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -67,8 +68,9 @@ export function NotebooksTable({ notebooks }: Notebooks) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[50%]">Name</TableHead>
+          <TableHead className="w-[40%]">Name</TableHead>
           <TableHead className="hidden md:table-cell">Last modified</TableHead>
+          <TableHead className="hidden lg:table-cell text-right">Size</TableHead>
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -126,6 +128,9 @@ export function NotebooksTable({ notebooks }: Notebooks) {
             </TableCell>
             <TableCell className="hidden md:table-cell text-muted-foreground text-sm">
               {timeAgo(n.updatedAt.toString())}
+            </TableCell>
+            <TableCell className="hidden lg:table-cell text-right text-muted-foreground text-sm">
+              {formatBytes(calculateNotebookSize(n.content))}
             </TableCell>
 
             <TableCell className="text-right">
