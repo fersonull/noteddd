@@ -36,7 +36,11 @@ export function NotebooksTable({ notebooks }: Notebooks) {
   const router = useRouter();
 
   const handleDelete = async (notebookId: string) => {
-    if (!confirm("Are you sure you want to delete this notebook? This action cannot be undone.")) {
+    if (
+      !confirm(
+        "Are you sure you want to delete this notebook? This action cannot be undone.",
+      )
+    ) {
       return;
     }
 
@@ -70,7 +74,9 @@ export function NotebooksTable({ notebooks }: Notebooks) {
         <TableRow>
           <TableHead className="w-[40%]">Name</TableHead>
           <TableHead className="hidden md:table-cell">Last modified</TableHead>
-          <TableHead className="hidden lg:table-cell text-right">Size</TableHead>
+          <TableHead className="hidden lg:table-cell text-right">
+            Size
+          </TableHead>
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -79,13 +85,15 @@ export function NotebooksTable({ notebooks }: Notebooks) {
           <TableRow
             key={n.id}
             className={`cursor-pointer transition-colors ${
-              isDeleting === n.id ? "opacity-50 pointer-events-none" : "hover:bg-muted/50"
+              isDeleting === n.id
+                ? "opacity-50 pointer-events-none"
+                : "hover:bg-muted/50"
             }`}
             onClick={() => router.push(`/notebooks/${n.id}`)}
           >
             <TableCell className="font-medium">
               <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 p-2 rounded-md bg-primary/10">
+                <div className="shrink-0 p-2 rounded-md bg-primary/10">
                   <FileText className="h-4 w-4 text-primary" />
                 </div>
                 {editingId === n.id ? (
@@ -107,7 +115,7 @@ export function NotebooksTable({ notebooks }: Notebooks) {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="h-8 w-8 flex-shrink-0"
+                      className="h-8 w-8 shrink-0"
                       onClick={() => handleRename(n.id)}
                     >
                       <Check className="h-4 w-4" />
@@ -115,7 +123,7 @@ export function NotebooksTable({ notebooks }: Notebooks) {
                     <Button
                       size="icon"
                       variant="ghost"
-                      className="h-8 w-8 flex-shrink-0"
+                      className="h-8 w-8 shrink-0"
                       onClick={() => setEditingId(null)}
                     >
                       <X className="h-4 w-4" />
@@ -143,7 +151,7 @@ export function NotebooksTable({ notebooks }: Notebooks) {
                     </Button>
                   </DropdownMenuTrigger>
 
-                  <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuContent align="end" className="w-48 font-outfit">
                     <DropdownMenuLabel className="font-medium text-xs truncate">
                       {n.title}
                     </DropdownMenuLabel>
