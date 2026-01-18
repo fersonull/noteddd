@@ -5,30 +5,49 @@ import { auth } from "@/app/auth";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { nanoid } from "nanoid";
-import type { Block, GetAllNotebookResult, SaveNotebookResult } from "../types";
-import { ParamsSchema } from "../schemas";
-import { Notebook } from "@/lib/generated/prisma/client";
+import type { GetAllNotebookResult, SaveNotebookResult } from "../types";
+import { 
+  ParamsSchema, 
+  CreateNotebookSchema, 
+  NotebookIdSchema,
+  SaveNotebookSchema,
+  RenameNotebookSchema 
+} from "../schemas";
+import { Notebook, Prisma } from "@/lib/generated/prisma/client";
 
 export async function createNotebook(formData: FormData): Promise<void> {
   const session = await auth();
-  const rawTitle = formData.get("title") as string;
 
   if (!session?.user?.id) {
     throw new Error("Unauthorized");
   }
 
-  const randomID = nanoid(10);
-
-  const notebook = await prisma.notebook.create({
-    data: {
-      userId: session.user.id,
-      title: rawTitle || `Untitled-${randomID}`, // Random name if empty
-      content: [], // Start empty
-    },
+  const rawTitle = formData.get("title");
+  const validation = CreateNotebookSchema.safeParse({ 
+    title: rawTitle ? String(rawTitle) : undefined 
   });
 
-  revalidatePath("/notebooks");
-  redirect(`/notebooks/${notebook.id}`);
+  if (!validation.success) {
+    throw new Error("Invalid input");
+  }
+
+  const randomID = nanoid(10);
+
+  try {
+    const notebook = await prisma.notebook.create({
+      data: {
+        userId: session.user.id,
+        title: validation.data.title || `Untitled-${randomID}`,
+        content: Prisma.JsonNull,
+      },
+    });
+
+    revalidatePath("/notebooks");
+    redirect(`/notebooks/${notebook.id}`);
+  } catch (error) {
+    console.error("Create notebook error:", error);
+    throw new Error("Failed to create notebook");
+  }
 }
 
 export async function getAllNotebooks(
@@ -40,7 +59,6 @@ export async function getAllNotebooks(
     return { success: false, data: [], error: "Unauthorized" };
   }
 
-  // 2. Parse the params. If 'limit' is missing, it defaults to 12.
   const parsed = ParamsSchema.safeParse(rawParams);
 
   if (!parsed.success) {
@@ -58,7 +76,6 @@ export async function getAllNotebooks(
           title: query ? { contains: query, mode: "insensitive" } : undefined,
         },
         orderBy: { updatedAt: "desc" },
-        // 3. Now guaranteed to be valid integers
         take: limit,
         skip: skip,
       }),
@@ -83,7 +100,7 @@ export async function getAllNotebooks(
       },
     };
   } catch (error) {
-    console.error("Database Error:", error);
+    console.error("Database error:", error);
     return { success: false, data: [], error: "Failed to fetch notebooks" };
   }
 }
@@ -91,72 +108,101 @@ export async function getAllNotebooks(
 export async function getNotebook(id: string): Promise<Notebook> {
   const session = await auth();
 
-  const notebook = await prisma.notebook.findFirst({
-    where: {
-      id,
-      userId: session?.user?.id,
-    },
-  });
-
-  if (!notebook) {
-    // If this returns null, it means either:
-    // 1. The notebook doesn't exist
-    // 2. The notebook exists, but belongs to someone else (Access Denied)
+  if (!session?.user?.id) {
     return notFound();
   }
 
-  return notebook;
+  const validation = NotebookIdSchema.safeParse({ id });
+
+  if (!validation.success) {
+    return notFound();
+  }
+
+  try {
+    const notebook = await prisma.notebook.findFirst({
+      where: {
+        id: validation.data.id,
+        userId: session.user.id,
+      },
+    });
+
+    if (!notebook) {
+      return notFound();
+    }
+
+    return notebook;
+  } catch (error) {
+    console.error("Get notebook error:", error);
+    return notFound();
+  }
 }
 
 export async function saveNotebook(
   notebookId: string,
-  content: Block[]
+  content: unknown
 ): Promise<SaveNotebookResult> {
   const session = await auth();
 
-  if (!session) {
-    throw new Error("Unauthorized");
+  if (!session?.user?.id) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const validation = SaveNotebookSchema.safeParse({ notebookId, content });
+
+  if (!validation.success) {
+    return { success: false, error: "Invalid input" };
   }
 
   try {
     await prisma.notebook.update({
       where: {
-        id: notebookId,
-        userId: session?.user?.id,
+        id: validation.data.notebookId,
+        userId: session.user.id,
       },
       data: {
-        content: content as any,
+        content: validation.data.content as Prisma.InputJsonValue,
       },
     });
 
-    revalidatePath(`/notebooks/${notebookId}`);
+    revalidatePath(`/notebooks/${validation.data.notebookId}`);
 
     return { success: true };
   } catch (error) {
-    console.error("Save error:", error);
-    return { success: false, error: "Failed to save to database" };
+    console.error("Save notebook error:", error);
+    return { success: false, error: "Failed to save notebook" };
   }
 }
 
 export async function deleteNotebook(notebookId: string): Promise<void> {
   const session = await auth();
 
-  if (!session) {
+  if (!session?.user?.id) {
     throw new Error("Unauthorized");
   }
 
-  const result = await prisma.notebook.deleteMany({
-    where: {
-      id: notebookId,
-      userId: session.user?.id,
-    },
-  });
+  const validation = NotebookIdSchema.safeParse({ id: notebookId });
 
-  if (result.count === 0) {
-    throw new Error("Failed to delete. You might not own this file.");
+  if (!validation.success) {
+    throw new Error("Invalid input");
   }
 
-  revalidatePath("/notebooks");
+  try {
+    const result = await prisma.notebook.deleteMany({
+      where: {
+        id: validation.data.id,
+        userId: session.user.id,
+      },
+    });
+
+    if (result.count === 0) {
+      throw new Error("Notebook not found or unauthorized");
+    }
+
+    revalidatePath("/notebooks");
+  } catch (error) {
+    console.error("Delete notebook error:", error);
+    throw new Error("Failed to delete notebook");
+  }
 }
 
 export async function renameNotebook(
@@ -165,19 +211,30 @@ export async function renameNotebook(
 ): Promise<void> {
   const session = await auth();
 
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized");
+  }
+
+  const validation = RenameNotebookSchema.safeParse({ notebookId, newTitle });
+
+  if (!validation.success) {
+    throw new Error("Invalid input");
+  }
+
   try {
     await prisma.notebook.update({
       where: {
-        id: notebookId,
-        userId: session?.user?.id,
+        id: validation.data.notebookId,
+        userId: session.user.id,
       },
       data: {
-        title: newTitle,
+        title: validation.data.newTitle,
       },
     });
-  } catch (error) {
-    console.log(error);
-  }
 
-  revalidatePath("/notebooks");
+    revalidatePath("/notebooks");
+  } catch (error) {
+    console.error("Rename notebook error:", error);
+    throw new Error("Failed to rename notebook");
+  }
 }
