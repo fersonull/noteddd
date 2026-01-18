@@ -80,7 +80,7 @@ export function NotebooksTable({ notebooks }: Notebooks) {
                     autoFocus
                     type="text"
                     defaultValue={n.title}
-                    onChange={(e) => setNewTitle(e.target.value)}
+                    onChange={(e) => setNewTitle(e.target.value || n.title)}
                     className="ring ring-muted-foreground py-1 px-3 rounded-sm"
                   />
 
