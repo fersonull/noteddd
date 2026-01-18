@@ -5,10 +5,8 @@ import { Block, NotebookPageParams } from "@/features/editor/types";
 
 export default async function NotebookPage({ params }: NotebookPageParams) {
   const { id } = await params;
-  console.log(id);
 
   const notebook = await getNotebook(id);
-  console.log(notebook);
 
   const blocks = Array.isArray(notebook.content)
     ? (notebook.content as unknown as Block[])
@@ -18,7 +16,7 @@ export default async function NotebookPage({ params }: NotebookPageParams) {
     <>
       <Header title={notebook.title} />
 
-      <main className="max-w-6xl w-full mx-auto relative">
+      <main className="max-w-6xl w-full mx-auto px-4 py-8 relative">
         <EditorWrapper id={notebook.id} blocks={blocks} />
       </main>
     </>

@@ -33,21 +33,17 @@ export async function createNotebook(formData: FormData): Promise<void> {
 
   const randomID = nanoid(10);
 
-  try {
-    const notebook = await prisma.notebook.create({
-      data: {
-        userId: session.user.id,
-        title: validation.data.title || `Untitled-${randomID}`,
-        content: Prisma.JsonNull,
-      },
-    });
+  const notebook = await prisma.notebook.create({
+    data: {
+      userId: session.user.id,
+      title: validation.data.title || `Untitled-${randomID}`,
+      content: [],
+    },
+  });
 
-    revalidatePath("/notebooks");
-    redirect(`/notebooks/${notebook.id}`);
-  } catch (error) {
-    console.error("Create notebook error:", error);
-    throw new Error("Failed to create notebook");
-  }
+  revalidatePath("/notebooks");
+  revalidatePath(`/notebooks/${notebook.id}`);
+  redirect(`/notebooks/${notebook.id}`);
 }
 
 export async function getAllNotebooks(

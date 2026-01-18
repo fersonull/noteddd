@@ -1,27 +1,37 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/app/auth";
+import AppLogo from "@/components/common/app-logo";
+import { BookOpen } from "lucide-react";
 
 export async function HomeNavbar() {
   const session = await auth();
 
   return (
-    <div className="py-3 flex items-center justify-center sticky top-0 font-outfit border-b">
-      <div className="flex items-center justify-between w-full max-w-6xl">
-        <Link href="#" className="font-semibold font-mono">
-          noteddd.
-        </Link>
-
-        <div className="flex items-center gap-4">
-          <Button variant="link" asChild>
-            {session ? (
-              <Link href="/notebooks">My notebooks</Link>
-            ) : (
-              <Link href="/login">Get started</Link>
-            )}
-          </Button>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between max-w-7xl mx-auto px-4">
+        <div className="flex items-center gap-2">
+          <BookOpen className="h-5 w-5 text-primary" />
+          <AppLogo />
         </div>
+
+        <nav className="flex items-center gap-4">
+          {session ? (
+            <Button variant="default" size="sm" asChild>
+              <Link href="/notebooks">My notebooks</Link>
+            </Button>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/login">Sign in</Link>
+              </Button>
+              <Button variant="default" size="sm" asChild>
+                <Link href="/login">Get started</Link>
+              </Button>
+            </>
+          )}
+        </nav>
       </div>
-    </div>
+    </header>
   );
 }
