@@ -68,9 +68,8 @@ export function EditorWrapper({ id, blocks }: WrapperProps) {
 
   return (
     <>
-      {/* Enhanced Save Status Indicator */}
       <div
-        className={`fixed bottom-6 right-6 border rounded-lg px-4 py-2.5 shadow-lg backdrop-blur-sm transition-all duration-300 `}
+        className={`fixed bottom-6 right-6 border rounded-lg px-4 py-2.5 shadow-lg backdrop-blur-sm transition-all duration-300 ${getStatusColor()}`}
       >
         <div className="flex items-center gap-2.5">
           {getStatusIcon()}

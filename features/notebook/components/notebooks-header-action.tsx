@@ -1,5 +1,5 @@
 import { Button } from "../../../components/ui/button";
-import { Check, FilePlusCorner } from "lucide-react";
+import { Plus } from "lucide-react";
 import {
   Popover,
   PopoverTrigger,
@@ -11,32 +11,37 @@ import { createNotebook } from "@/features/notebook/actions/notebook";
 
 export function NotebooksTableAction() {
   return (
-    <div className="flex items-center">
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button size="sm">
-            <FilePlusCorner />
-            <p className="text-sm">Create new</p>
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <form action={createNotebook} className="grid gap-4 font-outfit">
-            <div>
-              <Label>New Notebook</Label>
-              <p className="text-sm text-muted-foreground"></p>
-            </div>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button size="default" className="gap-2">
+          <Plus className="h-4 w-4" />
+          <span>Create notebook</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-80" align="end">
+        <form action={createNotebook} className="grid gap-4 font-outfit">
+          <div className="space-y-2">
+            <h4 className="font-semibold text-sm">Create New Notebook</h4>
+            <p className="text-xs text-muted-foreground">
+              Give your notebook a name or leave it blank for an auto-generated title.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="title" className="text-sm">
+              Notebook title <span className="text-muted-foreground">(optional)</span>
+            </Label>
             <Input
+              id="title"
               name="title"
-              placeholder="Untitled"
-              className="flex-1 me-1"
+              placeholder="e.g., My Learning Notes"
+              className="h-10"
             />
-            <Button>
-              <Check />
-              Create
-            </Button>
-          </form>
-        </PopoverContent>
-      </Popover>
-    </div>
+          </div>
+          <Button type="submit" className="w-full">
+            Create notebook
+          </Button>
+        </form>
+      </PopoverContent>
+    </Popover>
   );
 }
