@@ -2,14 +2,16 @@
 
 import { NotebookEditor } from "@/features/editor";
 import { saveNotebook } from "@/features/notebook/actions/notebook";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import type { WrapperProps, Block, status } from "@/features/editor/types";
+import type { WrapperProps, Block } from "@/features/editor/types";
 import { CloudOff, Loader2, CheckCircle2 } from "lucide-react";
+import { useSaveContext } from "../context/save-context";
 
 export function EditorWrapper({ id, blocks }: WrapperProps) {
-  const [status, setStatus] = useState<status | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const { status, setStatus, setHasUnsavedChanges, setPendingContent, setOnManualSave } = useSaveContext();
+  const pendingContentRef = useRef<Block[]>(blocks);
 
   useEffect(() => {
     if (status === "saved") {
@@ -27,21 +29,46 @@ export function EditorWrapper({ id, blocks }: WrapperProps) {
 
       return () => clearTimeout(timer);
     }
-  }, [status]);
+  }, [status, setStatus]);
 
-  const handleSave = useDebouncedCallback(async (newContent: Block[]) => {
+  const performSave = useCallback(async (content: Block[]) => {
     setStatus("saving");
     setIsVisible(true);
+    setHasUnsavedChanges(false);
 
-    const result = await saveNotebook(id, newContent);
+    const result = await saveNotebook(id, content);
 
     if (!result.success) {
       setStatus("error");
+      setHasUnsavedChanges(true);
       return;
     }
 
     setStatus("saved");
+    setPendingContent(null);
+  }, [id, setStatus, setHasUnsavedChanges, setPendingContent]);
+
+  const handleManualSave = useCallback(() => {
+    if (pendingContentRef.current) {
+      debouncedSave.cancel();
+      performSave(pendingContentRef.current);
+    }
+  }, [performSave]);
+
+  useEffect(() => {
+    setOnManualSave(() => handleManualSave);
+  }, [handleManualSave, setOnManualSave]);
+
+  const debouncedSave = useDebouncedCallback(async (newContent: Block[]) => {
+    await performSave(newContent);
   }, 2000);
+
+  const handleSave = useCallback((newContent: Block[]) => {
+    pendingContentRef.current = newContent;
+    setHasUnsavedChanges(true);
+    setPendingContent(newContent);
+    debouncedSave(newContent);
+  }, [setHasUnsavedChanges, setPendingContent, debouncedSave]);
 
   const getStatusIcon = () => {
     switch (status) {
@@ -73,21 +100,6 @@ export function EditorWrapper({ id, blocks }: WrapperProps) {
     }
   };
 
-  // const getStatusColor = () => {
-  //   switch (status) {
-  //     case "saving":
-  //       return "bg-muted/80 border-muted";
-  //     case "saved":
-  //       return "bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800";
-  //     case "error":
-  //       return "bg-destructive/10 border-destructive/30";
-  //     default:
-  //       return "bg-background border-border";
-  //   }
-  // };
-
-  // if (!status) return <NotebookEditor initialBlocks={blocks} onChange={handleSave} />;
-
   return (
     <>
       <div
@@ -95,9 +107,7 @@ export function EditorWrapper({ id, blocks }: WrapperProps) {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         }`}
       >
-        <div
-          className={`border rounded-sm px-4 py-2.5 shadow-sm backdrop-blur-sm`}
-        >
+        <div className="border rounded-sm px-4 py-2.5 shadow-sm backdrop-blur-sm">
           <div className="flex items-center gap-2.5">
             {getStatusIcon()}
             <p className="text-sm font-medium">{getStatusText()}</p>

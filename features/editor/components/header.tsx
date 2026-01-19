@@ -2,10 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "../../../components/ui/button";
-import { ArrowLeft, BookOpen } from "lucide-react";
+import { ArrowLeft, BookOpen, Save, Loader2 } from "lucide-react";
+import { useSaveContext } from "../context/save-context";
 
 export function Header({ title }: { title: string }) {
   const router = useRouter();
+  const { status, hasUnsavedChanges, triggerManualSave } = useSaveContext();
+
+  const isSaving = status === "saving";
+  const isSaved = !hasUnsavedChanges && status !== "saving";
 
   return (
     <div className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 border-b">
@@ -30,7 +35,27 @@ export function Header({ title }: { title: string }) {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Placeholder for future actions like share, settings, etc. */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={triggerManualSave}
+              disabled={isSaved || isSaving}
+              className="gap-2"
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span className="hidden sm:inline">Saving...</span>
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4" />
+                  <span className="hidden sm:inline">
+                    {isSaved ? "Saved" : "Save"}
+                  </span>
+                </>
+              )}
+            </Button>
           </div>
         </div>
       </div>
