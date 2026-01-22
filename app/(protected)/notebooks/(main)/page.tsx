@@ -1,11 +1,11 @@
-import { NotebooksTable } from "@/features/notebook";
+import { NotebooksTable, NotebooksTablePagination } from "@/features/notebook";
 import { NotebooksTableAction } from "@/features/notebook";
 import { EmptyNotebookFallback } from "@/features/notebook";
-import { NotebooksTablePagination } from "@/features/notebook";
 import { getAllNotebooks } from "@/features/notebook/actions/notebook";
 import type { SearchParams } from "@/features/notebook/types";
 import { normalizPaginatedResult } from "@/features/notebook/utils";
 import { BookOpen } from "lucide-react";
+import NotebooksLoading from "./loading";
 
 export default async function NotebooksPage({
   searchParams,
@@ -30,22 +30,26 @@ export default async function NotebooksPage({
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <BookOpen className="h-6 w-6 text-primary" />
-            <h1 className="text-2xl font-bold tracking-tight">Your Notebooks</h1>
+            <h1 className="text-2xl font-bold tracking-tight">
+              Your Notebooks
+            </h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            {metadata?.totalItems} {metadata?.totalItems === 1 ? "notebook" : "notebooks"} in total
+            {metadata?.totalItems}{" "}
+            {metadata?.totalItems === 1 ? "notebook" : "notebooks"} in total
           </p>
         </div>
         <NotebooksTableAction />
       </div>
 
-      <div className="rounded-lg border bg-card shadow-sm">
+      <div className=" bg-card">
         <NotebooksTable notebooks={notebooks} />
       </div>
 
       {totalPages > 1 && (
         <div className="mt-6">
           <NotebooksTablePagination metadata={metadata} searchParams={params} />
+          {/* <NotebooksLoading /> */}
         </div>
       )}
     </div>

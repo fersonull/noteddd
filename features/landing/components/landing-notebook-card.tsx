@@ -3,7 +3,7 @@ import { Code2, FileText } from "lucide-react";
 export function LandingNotebookCard() {
   return (
     <div className="relative">
-      <div className="rounded-xl shadow-2xl border bg-card rotate-3 min-w-lg max-w-xl transform transition-transform hover:rotate-1 hover:scale-105 duration-300">
+      <div className="rounded-xl border bg-card rotate-3 min-w-lg max-w-xl transform transition-transform hover:rotate-1 hover:scale-105 duration-300">
         <div className="p-4 border-b bg-muted/30 flex items-center gap-2 rounded-t-xl">
           <FileText className="h-4 w-4 text-primary" />
           <p className="font-semibold text-sm">Programming 101</p>
@@ -31,15 +31,21 @@ export function LandingNotebookCard() {
             <div className="rounded-lg bg-accent-foreground p-4 font-mono border border-primary/20 shadow-inner">
               <pre>
                 <code className="text-background text-xs leading-relaxed">
-                  <span className="text-primary-foreground/60">if</span> (condition) {"{"}
+                  <span className="text-primary-foreground/60">if</span>{" "}
+                  (condition) {"{"}
                   <br />
                   {"  "}
-                  <span className="text-primary-foreground/70">// runs when condition is true</span>
+                  <span className="text-primary-foreground/70">
+                    // runs when condition is true
+                  </span>
                   <br />
-                  {"}"} <span className="text-primary-foreground/60">else</span> {"{"}
+                  {"}"} <span className="text-primary-foreground/60">else</span>{" "}
+                  {"{"}
                   <br />
                   {"  "}
-                  <span className="text-primary-foreground/70">// runs when condition is false</span>
+                  <span className="text-primary-foreground/70">
+                    // runs when condition is false
+                  </span>
                   <br />
                   {"}"}
                 </code>

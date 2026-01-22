@@ -18,13 +18,13 @@ export async function LandingLeftHero() {
 
       <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
         Your Space to{" "}
-        <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+        <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
           Think
         </span>{" "}
         in Text and Code
       </h1>
 
-      <p className="text-lg text-muted-foreground max-w-xl">
+      <p className="text-base text-muted-foreground max-w-xl">
         Create notebooks, write freely, and store code snippets alongside your
         ideas in one clean workspace. Perfect for developers, researchers, and
         learners.

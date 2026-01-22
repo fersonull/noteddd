@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 
 export default function LoginAuthError() {
   return (
-    <div className="flex items-center justify-center min-h-screen font-outfit w-full bg-gradient-to-br from-background via-background to-destructive/5">
+    <div className="flex items-center justify-center min-h-screen font-outfit w-full bg-linear-to-br from-background via-background to-destructive/5">
       <div className="w-full max-w-md mx-auto px-4">
-        <div className="bg-card border rounded-2xl shadow-xl p-8 space-y-6 text-center">
+        <div className="bg-card rounded-2xl  p-8 space-y-6 text-center">
           <div className="flex justify-center">
             <div className="p-4 rounded-full bg-destructive/10 border-2 border-destructive/20">
               <AlertCircle className="h-12 w-12 text-destructive" />
@@ -18,7 +18,8 @@ export default function LoginAuthError() {
               Authentication Error
             </h1>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              We encountered an issue while trying to sign you in. This could be due to:
+              We encountered an issue while trying to sign you in. This could be
+              due to:
             </p>
           </div>
 
@@ -30,9 +31,7 @@ export default function LoginAuthError() {
 
           <div className="space-y-3 pt-2">
             <Button asChild className="w-full">
-              <Link href="/login">
-                Try again
-              </Link>
+              <Link href="/login">Try again</Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
               <Link href="/">

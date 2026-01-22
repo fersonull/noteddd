@@ -11,7 +11,7 @@ export const geistMono = Geist_Mono({
 });
 
 export const instrumentSans = Instrument_Sans({
-  variable: "--font-instrument-sans",
+  variable: "--font-instrument",
   weight: "variable",
   subsets: ["latin"],
 });
