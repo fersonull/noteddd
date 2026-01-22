@@ -93,8 +93,8 @@ export function NotebooksTable({ notebooks }: Notebooks) {
           >
             <TableCell className="font-medium">
               <div className="flex items-center gap-3">
-                <div className="shrink-0 p-2 rounded-md bg-primary/10">
-                  <FileText className="h-4 w-4 text-primary" />
+                <div className="shrink-0 p-2 rounded-md bg-accent">
+                  <FileText className="text-accent-foreground" size={16} />
                 </div>
                 {editingId === n.id ? (
                   <div

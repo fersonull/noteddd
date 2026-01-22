@@ -18,9 +18,9 @@ export function SignInForm() {
     await login(provider, "/notebooks");
   };
   return (
-    <div className="flex items-center justify-center min-h-screen font-outfit w-full bg-gradient-to-br from-background via-background to-primary/5">
+    <div className="flex items-center justify-center min-h-screen font-outfit w-full bg-linear-to-br from-background via-background to-primary/5">
       <div className="w-full max-w-md mx-auto px-4">
-        <div className="bg-card border rounded-2xl shadow-xl p-8 space-y-8">
+        <div className="bg-card  rounded-2xl  p-8 space-y-8">
           <div className="text-center space-y-4">
             <div className="flex justify-center">
               <div className="p-3 rounded-full bg-primary/10 border-2 border-primary/20">
@@ -82,12 +82,12 @@ export function SignInForm() {
           <div className="space-y-4">
             <Separator />
             <div className="grid grid-cols-2 gap-3 text-xs text-muted-foreground">
-              <div className="flex items-start gap-2">
-                <FileText className="h-4 w-4 flex-shrink-0 text-primary mt-0.5" />
+              <div className="flex items-center gap-2">
+                <FileText className="shrink-0 text-primary mt-0.5" size={16} />
                 <span>Write notes & ideas</span>
               </div>
-              <div className="flex items-start gap-2">
-                <Code2 className="h-4 w-4 flex-shrink-0 text-primary mt-0.5" />
+              <div className="flex items-center gap-2">
+                <Code2 className="shrink-0 text-primary mt-0.5" size={16} />
                 <span>Store code snippets</span>
               </div>
             </div>
@@ -96,17 +96,14 @@ export function SignInForm() {
           <div className="text-center">
             <p className="text-xs text-muted-foreground">
               By signing in, you agree to our{" "}
-              <Link href="#" className="underline hover:text-foreground transition-colors">
+              <Link
+                href="#"
+                className="underline hover:text-foreground transition-colors"
+              >
                 Terms and Conditions
               </Link>
             </p>
           </div>
-        </div>
-
-        <div className="mt-6 text-center">
-          <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1">
-            ← Back to home
-          </Link>
         </div>
       </div>
     </div>

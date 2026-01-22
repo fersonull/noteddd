@@ -13,14 +13,13 @@ const LANGUAGE_CONFIG = {
     extension: javascript({ jsx: true }),
     label: "JavaScript",
     icon: FaJsSquare,
-    color:
-      "bg-yellow-500/10 text-yellow-400 dark:text-yellow-400 border-yellow-500/20",
+    color: "text-yellow-400 dark:text-yellow-400 bg-accent-foreground",
   },
   python: {
     extension: python(),
     label: "Python",
     icon: FaPython,
-    color: "bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20",
+    color: "text-blue-700 dark:text-blue-400 bg-accent-foreground",
   },
 };
 
@@ -33,17 +32,11 @@ export function CodeBlock({ content, language, onChange }: CodeBlockProps) {
   const extensions = [langConfig.extension];
 
   return (
-    <div className="rounded-lg overflow-hidden border border-border shadow-sm bg-foreground">
+    <div className="rounded-md overflow-hidden border border-border shadow-sm bg-foreground">
       {/* Language Badge Header */}
-      <div className="flex items-center justify-between px-4 py-2 bg-muted/5 border-b border-border/50">
-        <div className="flex items-center gap-2">
-          <Code2 className="h-3.5 w-3.5 text-muted-foreground" />
-          <span className="text-xs font-medium text-muted-foreground">
-            Code Block
-          </span>
-        </div>
+      <div className="flex items-center justify-between px-3 py-2 bg-muted/5 border-b border-border/50">
         <div
-          className={`flex items-center gap-1.5 px-2 py-0.5 rounded-md border text-xs font-mono font-semibold ${langConfig.color}`}
+          className={`flex items-center gap-1.5 px-2 py-0.5 rounded-md  text-xs font-mono font-semibold ${langConfig.color}`}
         >
           <span>
             <langConfig.icon />

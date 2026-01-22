@@ -15,14 +15,14 @@ export default function NotebooksLoading() {
         <Skeleton className="h-10 w-40" />
       </div>
 
-      <div className="rounded-lg border bg-card shadow-sm">
-        <div className="p-4 space-y-4">
-          {[1, 2, 3, 4, 5].map((i) => (
+      <div className="rounded-lg bg-card">
+        <div className="p-4 space-y-6">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="flex items-center gap-4">
               <Skeleton className="h-10 w-10 rounded-md" />
               <div className="flex-1 space-y-2">
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-4 w-3/4" />
+                <Skeleton className="h-3 w-1/2" />
               </div>
               <Skeleton className="h-8 w-8 rounded" />
             </div>
