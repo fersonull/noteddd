@@ -5,7 +5,6 @@ import { getAllNotebooks } from "@/features/notebook/actions/notebook";
 import type { SearchParams } from "@/features/notebook/types";
 import { normalizPaginatedResult } from "@/features/notebook/utils";
 import { BookOpen } from "lucide-react";
-import NotebooksLoading from "./loading";
 
 export default async function NotebooksPage({
   searchParams,
@@ -49,7 +48,6 @@ export default async function NotebooksPage({
       {totalPages > 1 && (
         <div className="mt-6">
           <NotebooksTablePagination metadata={metadata} searchParams={params} />
-          {/* <NotebooksLoading /> */}
         </div>
       )}
     </div>

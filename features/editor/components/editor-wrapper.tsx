@@ -10,7 +10,13 @@ import { useSaveContext } from "../context/save-context";
 
 export function EditorWrapper({ id, blocks }: WrapperProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const { status, setStatus, setHasUnsavedChanges, setPendingContent, setOnManualSave } = useSaveContext();
+  const {
+    status,
+    setStatus,
+    setHasUnsavedChanges,
+    setPendingContent,
+    setOnManualSave,
+  } = useSaveContext();
   const pendingContentRef = useRef<Block[]>(blocks);
 
   useEffect(() => {
@@ -31,44 +37,50 @@ export function EditorWrapper({ id, blocks }: WrapperProps) {
     }
   }, [status, setStatus]);
 
-  const performSave = useCallback(async (content: Block[]) => {
-    setStatus("saving");
-    setIsVisible(true);
-    setHasUnsavedChanges(false);
+  const performSave = useCallback(
+    async (content: Block[]) => {
+      setStatus("saving");
+      setIsVisible(true);
+      setHasUnsavedChanges(false);
 
-    const result = await saveNotebook(id, content);
+      const result = await saveNotebook(id, content);
 
-    if (!result.success) {
-      setStatus("error");
-      setHasUnsavedChanges(true);
-      return;
-    }
+      if (!result.success) {
+        setStatus("error");
+        setHasUnsavedChanges(true);
+        return;
+      }
 
-    setStatus("saved");
-    setPendingContent(null);
-  }, [id, setStatus, setHasUnsavedChanges, setPendingContent]);
+      setStatus("saved");
+      setPendingContent(null);
+    },
+    [id, setStatus, setHasUnsavedChanges, setPendingContent],
+  );
+
+  const debouncedSave = useDebouncedCallback(async (newContent: Block[]) => {
+    await performSave(newContent);
+  }, 2000);
 
   const handleManualSave = useCallback(() => {
     if (pendingContentRef.current) {
       debouncedSave.cancel();
       performSave(pendingContentRef.current);
     }
-  }, [performSave]);
+  }, [performSave, debouncedSave]);
 
   useEffect(() => {
     setOnManualSave(() => handleManualSave);
   }, [handleManualSave, setOnManualSave]);
 
-  const debouncedSave = useDebouncedCallback(async (newContent: Block[]) => {
-    await performSave(newContent);
-  }, 2000);
-
-  const handleSave = useCallback((newContent: Block[]) => {
-    pendingContentRef.current = newContent;
-    setHasUnsavedChanges(true);
-    setPendingContent(newContent);
-    debouncedSave(newContent);
-  }, [setHasUnsavedChanges, setPendingContent, debouncedSave]);
+  const handleSave = useCallback(
+    (newContent: Block[]) => {
+      pendingContentRef.current = newContent;
+      setHasUnsavedChanges(true);
+      setPendingContent(newContent);
+      debouncedSave(newContent);
+    },
+    [setHasUnsavedChanges, setPendingContent, debouncedSave],
+  );
 
   const getStatusIcon = () => {
     switch (status) {

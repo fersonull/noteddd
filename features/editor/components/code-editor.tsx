@@ -5,7 +5,6 @@ import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import type { CodeBlockProps } from "@/features/editor/types";
-import { Code2 } from "lucide-react";
 import { FaJsSquare, FaPython } from "react-icons/fa";
 
 const LANGUAGE_CONFIG = {
