@@ -36,7 +36,7 @@ export function LandingNotebookCard() {
                   <br />
                   {"  "}
                   <span className="text-primary-foreground/70">
-                    // runs when condition is true
+                    {"// runs when condition is true"}
                   </span>
                   <br />
                   {"}"} <span className="text-primary-foreground/60">else</span>{" "}
@@ -44,7 +44,7 @@ export function LandingNotebookCard() {
                   <br />
                   {"  "}
                   <span className="text-primary-foreground/70">
-                    // runs when condition is false
+                    {"// runs when condition is false"}
                   </span>
                   <br />
                   {"}"}
